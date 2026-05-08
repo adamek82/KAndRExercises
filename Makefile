@@ -13,10 +13,10 @@ MKDIR_P := mkdir -p
 RM_RF := rm -rf
 
 ifeq ($(BUILD),release)
-CFLAGS := -std=c89 -Wall -Wextra -pedantic -O2 -DNDEBUG
+CFLAGS := -std=c23 -Wall -Wextra -pedantic -O2 -DNDEBUG
 OUTDIR := build/release
 else
-CFLAGS := -std=c89 -Wall -Wextra -pedantic -g -O0
+CFLAGS := -std=c23 -Wall -Wextra -pedantic -g -O0
 OUTDIR := build/debug
 endif
 
