@@ -12,19 +12,22 @@ endif
 MKDIR_P := mkdir -p
 RM_RF := rm -rf
 
+CFLAGS_COMMON := -std=c23 -Wall -Wextra -pedantic
+
 ifeq ($(BUILD),release)
-CFLAGS := -std=c23 -Wall -Wextra -pedantic -O2 -DNDEBUG
+CFLAGS := $(CFLAGS_COMMON) -O2 -DNDEBUG
 OUTDIR := build/release
 else
-CFLAGS := -std=c23 -Wall -Wextra -pedantic -g -O0
+CFLAGS := $(CFLAGS_COMMON) -g -O0
 OUTDIR := build/debug
 endif
 
-EXERCISES := chapter01/exercise01
-
+EXERCISES := $(patsubst %/main.c,%,$(wildcard chapter*/exercise*/main.c))
 TARGETS := $(addsuffix $(EXEEXT),$(addprefix $(OUTDIR)/,$(EXERCISES)))
 
-.PHONY: all debug release clean run-ch01-ex01 list
+.PHONY: all debug release clean list \
+        run-ch01-ex01 run-ch01-ex02 \
+        experiment-ch01-ex02
 
 all: debug
 
@@ -34,15 +37,25 @@ debug:
 release:
 	$(MAKE) BUILD=release $(TARGETS)
 
-$(OUTDIR)/chapter01/exercise01$(EXEEXT): chapter01/exercise01/main.c
+$(OUTDIR)/%$(EXEEXT): %/main.c
 	$(MKDIR_P) $(dir $@)
-	$(CC) $(CFLAGS) chapter01/exercise01/main.c -o $(OUTDIR)/chapter01/exercise01$(EXEEXT)
+	$(CC) $(CFLAGS) $< -o $@
 
 run-ch01-ex01: debug
 	./build/debug/chapter01/exercise01$(EXEEXT)
 
+run-ch01-ex02: debug
+	./build/debug/chapter01/exercise02$(EXEEXT)
+
+build/debug/chapter01/exercise02-experiment$(EXEEXT): chapter01/exercise02/main.c
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(CFLAGS_COMMON) -g -O0 -DEXPERIMENT_UNKNOWN_ESCAPE $< -o $@
+
+experiment-ch01-ex02: build/debug/chapter01/exercise02-experiment$(EXEEXT)
+	./build/debug/chapter01/exercise02-experiment$(EXEEXT)
+
 list:
-	@echo $(EXERCISES)
+	@printf '%s\n' $(EXERCISES)
 
 clean:
 	$(RM_RF) build

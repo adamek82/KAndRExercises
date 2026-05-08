@@ -44,6 +44,31 @@
             "problemMatcher": []
         },
         {
+            "label": "Run Chapter 1 Exercise 2",
+            "type": "shell",
+            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+            "args": [
+                "run-ch01-ex02"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": "Build Debug",
+            "problemMatcher": []
+        },
+        {
+            "label": "Experiment Chapter 1 Exercise 2",
+            "type": "shell",
+            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+            "args": [
+                "experiment-ch01-ex02"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
             "label": "Clean",
             "type": "shell",
             "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
