@@ -26,7 +26,7 @@ EXERCISES := $(patsubst %/main.c,%,$(wildcard chapter*/exercise*/main.c))
 TARGETS := $(addsuffix $(EXEEXT),$(addprefix $(OUTDIR)/,$(EXERCISES)))
 
 .PHONY: all build debug release clean list \
-        run-ch01-ex01 run-ch01-ex02 run-ch01-ex03 \
+        run-ch01-ex01 run-ch01-ex02 run-ch01-ex03 run-ch01-ex04 \
         experiment-ch01-ex02
 
 all: debug
@@ -51,6 +51,9 @@ run-ch01-ex02: debug
 
 run-ch01-ex03: debug
 	./build/debug/chapter01/exercise03$(EXEEXT)
+
+run-ch01-ex04: debug
+	./build/debug/chapter01/exercise04$(EXEEXT)
 
 build/debug/chapter01/exercise02-experiment$(EXEEXT): chapter01/exercise02/main.c
 	$(MKDIR_P) $(dir $@)
