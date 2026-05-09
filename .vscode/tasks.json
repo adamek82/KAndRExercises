@@ -95,6 +95,19 @@
             "problemMatcher": []
         },
         {
+            "label": "Run Chapter 1 Exercise 5",
+            "type": "shell",
+            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+            "args": [
+                "run-ch01-ex05"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": "Build Debug",
+            "problemMatcher": []
+        },
+        {
             "label": "Clean",
             "type": "shell",
             "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
