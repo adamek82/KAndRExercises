@@ -24,7 +24,7 @@ CFLAGS := $(CFLAGS_COMMON) -g -O0
 OUTDIR := build/debug
 endif
 
-EXERCISES := $(patsubst %/main.c,%,$(wildcard chapter*/exercise*/main.c))
+EXERCISES := $(patsubst %/main.c,%,$(wildcard chapter*/exercise*/main.c chapter*/exercise*/*/main.c))
 TARGETS := $(addsuffix $(EXEEXT),$(addprefix $(OUTDIR)/,$(EXERCISES)))
 TESTS := \
 	test-ch01-ex06 \
