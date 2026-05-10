@@ -26,7 +26,7 @@ EXERCISES := $(patsubst %/main.c,%,$(wildcard chapter*/exercise*/main.c))
 TARGETS := $(addsuffix $(EXEEXT),$(addprefix $(OUTDIR)/,$(EXERCISES)))
 
 .PHONY: all build debug release clean list run \
-        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 \
+        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 \
         experiment-ch01-ex02
 
 all: debug
@@ -72,6 +72,13 @@ test-ch01-ex08: debug
 	@printf ' \t\nx\n' | ./build/debug/chapter01/exercise08$(EXEEXT) | grep -qx '1 1 2'
 	@printf 'a b\tc\n\n  d' | ./build/debug/chapter01/exercise08$(EXEEXT) | grep -qx '3 1 2'
 	@echo "chapter01/exercise08 tests passed"
+
+test-ch01-ex09: debug
+	@test "$$(printf '%s' '' | ./build/debug/chapter01/exercise09$(EXEEXT))" = ""
+	@test "$$(printf '%s' 'abc' | ./build/debug/chapter01/exercise09$(EXEEXT))" = "abc"
+	@test "$$(printf '%s' 'a  b   c' | ./build/debug/chapter01/exercise09$(EXEEXT))" = "a b c"
+	@test "$$(printf '%s' '   a    b   ' | ./build/debug/chapter01/exercise09$(EXEEXT))" = " a b "
+	@echo "chapter01/exercise09 tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
