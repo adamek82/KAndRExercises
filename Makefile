@@ -98,6 +98,9 @@ test-ch01-ex09: debug
 	@test "$$(printf '%s' '   a    b   ' | ./build/debug/chapter01/exercise09$(EXEEXT))" = " a b "
 	@echo "chapter01/exercise09 tests passed"
 
+# Use octal byte values here to avoid ambiguity between real control
+# characters such as TAB/BACKSPACE and their visible escaped forms
+# such as \t, \b, and \\.
 test-ch01-ex10: debug
 	@printf '%s' 'abc' | ./build/debug/chapter01/exercise10$(EXEEXT) > build/debug/chapter01/exercise10.out
 	@printf '%s' 'abc' > build/debug/chapter01/exercise10.expected
