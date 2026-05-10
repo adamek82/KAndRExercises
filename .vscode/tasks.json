@@ -31,140 +31,12 @@
             "problemMatcher": "$gcc"
         },
         {
-            "label": "Run Chapter 1 Exercise 1",
+            "label": "Run Exercise",
             "type": "shell",
             "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
             "args": [
-                "run-ch01-ex01"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Run Chapter 1 Exercise 2",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "run-ch01-ex02"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Experiment Chapter 1 Exercise 2",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "experiment-ch01-ex02"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "problemMatcher": "$gcc"
-        },
-        {
-            "label": "Run Chapter 1 Exercise 3",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "run-ch01-ex03"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Run Chapter 1 Exercise 4",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "run-ch01-ex04"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Run Chapter 1 Exercise 5",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "run-ch01-ex05"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Run Chapter 1 Exercise 6",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "run-ch01-ex06"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Test Chapter 1 Exercise 6",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "test-ch01-ex06"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Run Chapter 1 Exercise 7",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "run-ch01-ex07"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Test Chapter 1 Exercise 7",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "test-ch01-ex07"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Run Chapter 1 Exercise 8",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "run-ch01-ex08"
+                "run",
+                "EX=${input:exercisePath}"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -196,6 +68,14 @@
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "exercisePath",
+            "type": "promptString",
+            "description": "Exercise path, e.g. chapter01/exercise08",
+            "default": "chapter01/exercise08"
         }
     ]
 }

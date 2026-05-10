@@ -25,10 +25,8 @@ endif
 EXERCISES := $(patsubst %/main.c,%,$(wildcard chapter*/exercise*/main.c))
 TARGETS := $(addsuffix $(EXEEXT),$(addprefix $(OUTDIR)/,$(EXERCISES)))
 
-.PHONY: all build debug release clean list \
-        run-ch01-ex01 run-ch01-ex02 run-ch01-ex03 run-ch01-ex04 run-ch01-ex05 run-ch01-ex06 run-ch01-ex07 run-ch01-ex08 \
-        test-ch01-ex06 \
-		test-ch01-ex07 \
+.PHONY: all build debug release clean list run \
+        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 \
         experiment-ch01-ex02
 
 all: debug
@@ -45,29 +43,12 @@ $(OUTDIR)/%$(EXEEXT): %/main.c
 	$(MKDIR_P) $(dir $@)
 	$(CC) $(CFLAGS) $< -o $@
 
-run-ch01-ex01: debug
-	./build/debug/chapter01/exercise01$(EXEEXT)
-
-run-ch01-ex02: debug
-	./build/debug/chapter01/exercise02$(EXEEXT)
-
-run-ch01-ex03: debug
-	./build/debug/chapter01/exercise03$(EXEEXT)
-
-run-ch01-ex04: debug
-	./build/debug/chapter01/exercise04$(EXEEXT)
-
-run-ch01-ex05: debug
-	./build/debug/chapter01/exercise05$(EXEEXT)
-
-run-ch01-ex06: debug
-	./build/debug/chapter01/exercise06$(EXEEXT)
-
-run-ch01-ex07: debug
-	./build/debug/chapter01/exercise07$(EXEEXT)
-
-run-ch01-ex08: debug
-	./build/debug/chapter01/exercise08$(EXEEXT)
+run: debug
+	@if [ -z "$(EX)" ]; then \
+		echo "Usage: make run EX=chapter01/exercise01"; \
+		exit 1; \
+	fi
+	./build/debug/$(EX)$(EXEEXT)
 
 build/debug/chapter01/exercise02-experiment$(EXEEXT): chapter01/exercise02/main.c
 	$(MKDIR_P) $(dir $@)
