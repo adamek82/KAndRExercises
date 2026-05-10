@@ -24,8 +24,13 @@ endif
 
 EXERCISES := $(patsubst %/main.c,%,$(wildcard chapter*/exercise*/main.c))
 TARGETS := $(addsuffix $(EXEEXT),$(addprefix $(OUTDIR)/,$(EXERCISES)))
+TESTS := \
+	test-ch01-ex06 \
+	test-ch01-ex07 \
+	test-ch01-ex08 \
+	test-ch01-ex09
 
-.PHONY: all build debug release clean list run \
+.PHONY: all build debug release clean list run test test-all \
         test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 \
         experiment-ch01-ex02
 
@@ -49,6 +54,16 @@ run: debug
 		exit 1; \
 	fi
 	./build/debug/$(EX)$(EXEEXT)
+
+test:
+	@if [ -z "$(EX)" ]; then \
+		echo "Usage: make test EX=chapter01/exercise09"; \
+		exit 1; \
+	fi
+	@target=$$(echo "$(EX)" | sed 's#chapter\([0-9][0-9]\)/exercise\([0-9][0-9]\)#test-ch\1-ex\2#'); \
+	$(MAKE) $$target
+
+test-all: $(TESTS)
 
 build/debug/chapter01/exercise02-experiment$(EXEEXT): chapter01/exercise02/main.c
 	$(MKDIR_P) $(dir $@)

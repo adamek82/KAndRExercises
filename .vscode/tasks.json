@@ -45,11 +45,12 @@
             "problemMatcher": []
         },
         {
-            "label": "Test Chapter 1 Exercise 6",
+            "label": "Test Exercise",
             "type": "shell",
             "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
             "args": [
-                "test-ch01-ex06"
+                "test",
+                "EX=${input:exercisePath}"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -58,37 +59,11 @@
             "problemMatcher": []
         },
         {
-            "label": "Test Chapter 1 Exercise 7",
+            "label": "Test All",
             "type": "shell",
             "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
             "args": [
-                "test-ch01-ex07"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Test Chapter 1 Exercise 8",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "test-ch01-ex08"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "dependsOn": "Build Debug",
-            "problemMatcher": []
-        },
-        {
-            "label": "Test Chapter 1 Exercise 9",
-            "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
-            "args": [
-                "test-ch01-ex09"
+                "test-all"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
