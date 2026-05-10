@@ -3,9 +3,11 @@ BUILD ?= debug
 ifeq ($(OS),Windows_NT)
 export PATH := C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$(PATH)
 CC := gcc
+CMP := C:/msys64/usr/bin/cmp.exe
 EXEEXT := .exe
 else
 CC ?= gcc
+CMP := cmp
 EXEEXT :=
 endif
 
@@ -28,10 +30,11 @@ TESTS := \
 	test-ch01-ex06 \
 	test-ch01-ex07 \
 	test-ch01-ex08 \
-	test-ch01-ex09
+	test-ch01-ex09 \
+	test-ch01-ex10
 
 .PHONY: all build debug release clean list run test test-all \
-        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 \
+        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 \
         experiment-ch01-ex02
 
 all: debug
@@ -94,6 +97,22 @@ test-ch01-ex09: debug
 	@test "$$(printf '%s' 'a  b   c' | ./build/debug/chapter01/exercise09$(EXEEXT))" = "a b c"
 	@test "$$(printf '%s' '   a    b   ' | ./build/debug/chapter01/exercise09$(EXEEXT))" = " a b "
 	@echo "chapter01/exercise09 tests passed"
+
+test-ch01-ex10: debug
+	@printf '%s' 'abc' | ./build/debug/chapter01/exercise10$(EXEEXT) > build/debug/chapter01/exercise10.out
+	@printf '%s' 'abc' > build/debug/chapter01/exercise10.expected
+	@$(CMP) -s build/debug/chapter01/exercise10.out build/debug/chapter01/exercise10.expected
+
+	@printf '\141\011\142\010\134\143' | ./build/debug/chapter01/exercise10$(EXEEXT) > build/debug/chapter01/exercise10.out
+	@printf '\141\134\164\142\134\142\134\134\143' > build/debug/chapter01/exercise10.expected
+	@$(CMP) -s build/debug/chapter01/exercise10.out build/debug/chapter01/exercise10.expected
+
+	@printf '\011\134\010' | ./build/debug/chapter01/exercise10$(EXEEXT) > build/debug/chapter01/exercise10.out
+	@printf '\134\164\134\134\134\142' > build/debug/chapter01/exercise10.expected
+	@$(CMP) -s build/debug/chapter01/exercise10.out build/debug/chapter01/exercise10.expected
+
+	@$(RM_RF) build/debug/chapter01/exercise10.out build/debug/chapter01/exercise10.expected
+	@echo "chapter01/exercise10 tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
