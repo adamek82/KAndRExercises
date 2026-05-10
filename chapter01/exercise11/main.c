@@ -11,6 +11,19 @@
  *
  * This file contains the word count program from the book, so the
  * corresponding Makefile target can test it with representative inputs.
+ *
+ * The tests focus on boundary cases and state transitions:
+ *
+ * - empty input: 0 lines, 0 words, 0 characters
+ * - one word without a trailing newline: word ends at EOF
+ * - one-letter word followed by newline: minimal word plus line count
+ * - two-letter word followed by newline: character count sanity check
+ * - two words in one line: transition OUT -> IN happens twice
+ * - two lines with two words: line counting and word counting together
+ * - only whitespace: no false words should be counted
+ * - leading whitespace: word starts after blanks
+ * - multiple blanks between words: still only two words
+ * - mixed whitespace: spaces, tabs, and newlines all separate words
  */
 int main(void)
 {
