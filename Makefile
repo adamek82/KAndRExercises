@@ -102,6 +102,8 @@ test-ch01-ex09: debug
 # characters such as TAB/BACKSPACE and their visible escaped forms
 # such as \t, \b, and \\.
 test-ch01-ex10: debug
+	@$(RM_RF) build/debug/chapter01/exercise10.out build/debug/chapter01/exercise10.expected
+
 	@printf '%s' 'abc' | ./build/debug/chapter01/exercise10$(EXEEXT) > build/debug/chapter01/exercise10.out
 	@printf '%s' 'abc' > build/debug/chapter01/exercise10.expected
 	@$(CMP) -s build/debug/chapter01/exercise10.out build/debug/chapter01/exercise10.expected
