@@ -1,5 +1,15 @@
 #include <stdio.h>
 
+/*
+ * Exercise 1-2.
+ *
+ * Experiment to find out what happens when printf's argument string
+ * contains \c, where c is some character not listed above.
+ *
+ * In ISO C, unknown escape sequences are not portable and should not be
+ * used in real code. The actual experiment is guarded by
+ * EXPERIMENT_UNKNOWN_ESCAPE so the normal build stays warning-free.
+ */
 int main(void)
 {
     printf("K&R exercise 1-2\n");
