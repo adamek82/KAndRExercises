@@ -121,6 +121,8 @@ test-ch01-ex10: debug
 	@$(RM_RF) build/debug/chapter01/exercise10.out build/debug/chapter01/exercise10.expected
 	@echo "chapter01/exercise10 tests passed"
 
+# Normalize CRLF to LF before comparing output. MinGW-built .exe programs
+# may translate '\n' to '\r\n' on Windows, while our expected outputs use LF.
 test-ch01-ex11: debug
 	@printf '%s' '' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '0 0 0'
 	@printf '%s' 'one' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '0 1 3'
