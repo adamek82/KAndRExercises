@@ -31,10 +31,11 @@ TESTS := \
 	test-ch01-ex07 \
 	test-ch01-ex08 \
 	test-ch01-ex09 \
-	test-ch01-ex10
+	test-ch01-ex10 \
+	test-ch01-ex11
 
 .PHONY: all build debug release clean list run test test-all \
-        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 \
+        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 \
         experiment-ch01-ex02
 
 all: debug
@@ -118,6 +119,19 @@ test-ch01-ex10: debug
 
 	@$(RM_RF) build/debug/chapter01/exercise10.out build/debug/chapter01/exercise10.expected
 	@echo "chapter01/exercise10 tests passed"
+
+test-ch01-ex11: debug
+	@printf '%s' '' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '0 0 0'
+	@printf '%s' 'one' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '0 1 3'
+	@printf 'a\n' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '1 1 2'
+	@printf 'ab\n' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '1 1 3'
+	@printf 'a b\n' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '1 2 4'
+	@printf 'a\nb\n' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '2 2 4'
+	@printf '\n\t \n' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '2 0 4'
+	@printf '%s' '   word' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '0 1 7'
+	@printf '%s' 'word   word' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '0 2 11'
+	@printf '\tword\n\nsecond\tthird' | ./build/debug/chapter01/exercise11$(EXEEXT) | tr -d '\r' | grep -Fxq '2 3 19'
+	@echo "chapter01/exercise11 tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
