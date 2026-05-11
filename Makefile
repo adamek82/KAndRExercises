@@ -33,10 +33,11 @@ TESTS := \
 	test-ch01-ex09 \
 	test-ch01-ex10 \
 	test-ch01-ex11 \
-	test-ch01-ex12
+	test-ch01-ex12 \
+	test-ch01-ex13-horizontal
 
 .PHONY: all build debug release clean list run test test-all \
-        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 \
+        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 test-ch01-ex13-horizontal \
         experiment-ch01-ex02
 
 all: debug
@@ -65,7 +66,9 @@ test:
 		echo "Usage: make test EX=chapter01/exercise09"; \
 		exit 1; \
 	fi
-	@target=$$(echo "$(EX)" | sed 's#chapter\([0-9][0-9]\)/exercise\([0-9][0-9]\)#test-ch\1-ex\2#'); \
+	@target=$$(echo "$(EX)" | sed \
+		-e 's#^chapter\([0-9][0-9]\)/exercise\([0-9][0-9]\)/\([^/][^/]*\)$$#test-ch\1-ex\2-\3#' \
+		-e 's#^chapter\([0-9][0-9]\)/exercise\([0-9][0-9]\)$$#test-ch\1-ex\2#'); \
 	$(MAKE) $$target
 
 test-all: $(TESTS)
@@ -165,6 +168,42 @@ test-ch01-ex12: debug
 
 	@$(RM_RF) build/debug/chapter01/exercise12.out build/debug/chapter01/exercise12.expected
 	@echo "chapter01/exercise12 tests passed"
+
+test-ch01-ex13-horizontal: debug
+	@$(RM_RF) build/debug/chapter01/exercise13/horizontal.out build/debug/chapter01/exercise13/horizontal.expected
+
+	@printf '%s' 'a bb ccc bb' | ./build/debug/chapter01/exercise13/horizontal$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise13/horizontal.out
+	@printf '%s\n' 'Length Count Histogram' > build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     1     1 *****' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     2     2 **********' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     3     1 *****' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     4     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     5     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     6     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     7     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     8     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     9     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '    10     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '   >10     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@$(CMP) -s build/debug/chapter01/exercise13/horizontal.out build/debug/chapter01/exercise13/horizontal.expected
+
+	@printf '%s' 'abcdefghijk' | ./build/debug/chapter01/exercise13/horizontal$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise13/horizontal.out
+	@printf '%s\n' 'Length Count Histogram' > build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     1     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     2     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     3     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     4     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     5     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     6     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     7     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     8     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '     9     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '    10     0' >> build/debug/chapter01/exercise13/horizontal.expected
+	@printf '%s\n' '   >10     1 **********' >> build/debug/chapter01/exercise13/horizontal.expected
+	@$(CMP) -s build/debug/chapter01/exercise13/horizontal.out build/debug/chapter01/exercise13/horizontal.expected
+
+	@$(RM_RF) build/debug/chapter01/exercise13/horizontal.out build/debug/chapter01/exercise13/horizontal.expected
+	@echo "chapter01/exercise13/horizontal tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
