@@ -34,10 +34,12 @@ TESTS := \
 	test-ch01-ex10 \
 	test-ch01-ex11 \
 	test-ch01-ex12 \
-	test-ch01-ex13-horizontal
+	test-ch01-ex13-horizontal \
+	test-ch01-ex13-vertical
 
 .PHONY: all build debug release clean list run test test-all \
-        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 test-ch01-ex13-horizontal \
+        test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 \
+        test-ch01-ex13-horizontal test-ch01-ex13-vertical \
         experiment-ch01-ex02
 
 all: debug
@@ -204,6 +206,44 @@ test-ch01-ex13-horizontal: debug
 
 	@$(RM_RF) build/debug/chapter01/exercise13/horizontal.out build/debug/chapter01/exercise13/horizontal.expected
 	@echo "chapter01/exercise13/horizontal tests passed"
+
+test-ch01-ex13-vertical: debug
+	@$(RM_RF) build/debug/chapter01/exercise13/vertical.out build/debug/chapter01/exercise13/vertical.expected
+
+	@printf '%s' 'a bb ccc bb' | ./build/debug/chapter01/exercise13/vertical$(EXEEXT) | tr -d '\r' | sed 's/[[:space:]]*$$//' > build/debug/chapter01/exercise13/vertical.out
+	@printf '%s\n' 'Length Histogram' > build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '       *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '       *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '       *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '       *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '       *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '   *   *   *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '   *   *   *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '   *   *   *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '   *   *   *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '   *   *   *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '   1   2   3   4   5   6   7   8   9  10 >10' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '   1   2   1   0   0   0   0   0   0   0   0' >> build/debug/chapter01/exercise13/vertical.expected
+	@$(CMP) -s build/debug/chapter01/exercise13/vertical.out build/debug/chapter01/exercise13/vertical.expected
+
+	@printf '%s' 'abcdefghijk' | ./build/debug/chapter01/exercise13/vertical$(EXEEXT) | tr -d '\r' | sed 's/[[:space:]]*$$//' > build/debug/chapter01/exercise13/vertical.out
+	@printf '%s\n' 'Length Histogram' > build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '                                           *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '                                           *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '                                           *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '                                           *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '                                           *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '                                           *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '                                           *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '                                           *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '                                           *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '                                           *' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '   1   2   3   4   5   6   7   8   9  10 >10' >> build/debug/chapter01/exercise13/vertical.expected
+	@printf '%s\n' '   0   0   0   0   0   0   0   0   0   0   1' >> build/debug/chapter01/exercise13/vertical.expected
+	@$(CMP) -s build/debug/chapter01/exercise13/vertical.out build/debug/chapter01/exercise13/vertical.expected
+
+	@$(RM_RF) build/debug/chapter01/exercise13/vertical.out build/debug/chapter01/exercise13/vertical.expected
+	@echo "chapter01/exercise13/vertical tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
