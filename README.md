@@ -305,5 +305,10 @@ C:/msys64/ucrt64/bin/mingw32-make.exe test-all
 
 ## License
 
-This repository contains personal exercise solutions. Add a license file if the code is intended to be reused by others.
+This repository is licensed under the MIT License.
 
+You are free to use, copy, modify, and distribute the code, including for
+commercial purposes, as long as the original copyright notice and license text
+are preserved.
+
+See [LICENSE](LICENSE) for details.
