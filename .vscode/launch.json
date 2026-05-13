@@ -2,7 +2,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Active Exercise",
+            "name": "Debug Exercise Linux",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/debug/${relativeFileDirname}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "preLaunchTask": "Build Debug"
+        },
+        {
+            "name": "Debug Exercise MSYS2",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/debug/${relativeFileDirname}.exe",
