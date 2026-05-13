@@ -4,10 +4,24 @@
         {
             "label": "Build Debug",
             "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+            "command": "make",
             "args": [
+                "CC=gcc-14",
                 "debug"
             ],
+            "windows": {
+                "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+                "args": [
+                    "debug"
+                ]
+            },
+            "linux": {
+                "command": "make",
+                "args": [
+                    "CC=gcc-14",
+                    "debug"
+                ]
+            },
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -20,10 +34,24 @@
         {
             "label": "Build Release",
             "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+            "command": "make",
             "args": [
+                "CC=gcc-14",
                 "release"
             ],
+            "windows": {
+                "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+                "args": [
+                    "release"
+                ]
+            },
+            "linux": {
+                "command": "make",
+                "args": [
+                    "CC=gcc-14",
+                    "release"
+                ]
+            },
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -33,11 +61,27 @@
         {
             "label": "Run Exercise",
             "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+            "command": "make",
             "args": [
+                "CC=gcc-14",
                 "run",
                 "EX=${input:exercisePath}"
             ],
+            "windows": {
+                "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+                "args": [
+                    "run",
+                    "EX=${input:exercisePath}"
+                ]
+            },
+            "linux": {
+                "command": "make",
+                "args": [
+                    "CC=gcc-14",
+                    "run",
+                    "EX=${input:exercisePath}"
+                ]
+            },
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -47,11 +91,27 @@
         {
             "label": "Test Exercise",
             "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+            "command": "make",
             "args": [
+                "CC=gcc-14",
                 "test",
                 "EX=${input:exercisePath}"
             ],
+            "windows": {
+                "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+                "args": [
+                    "test",
+                    "EX=${input:exercisePath}"
+                ]
+            },
+            "linux": {
+                "command": "make",
+                "args": [
+                    "CC=gcc-14",
+                    "test",
+                    "EX=${input:exercisePath}"
+                ]
+            },
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -61,10 +121,24 @@
         {
             "label": "Test All",
             "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+            "command": "make",
             "args": [
+                "CC=gcc-14",
                 "test-all"
             ],
+            "windows": {
+                "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+                "args": [
+                    "test-all"
+                ]
+            },
+            "linux": {
+                "command": "make",
+                "args": [
+                    "CC=gcc-14",
+                    "test-all"
+                ]
+            },
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -74,10 +148,22 @@
         {
             "label": "Clean",
             "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+            "command": "make",
             "args": [
                 "clean"
             ],
+            "windows": {
+                "command": "C:/msys64/ucrt64/bin/mingw32-make.exe",
+                "args": [
+                    "clean"
+                ]
+            },
+            "linux": {
+                "command": "make",
+                "args": [
+                    "clean"
+                ]
+            },
             "options": {
                 "cwd": "${workspaceFolder}"
             },
