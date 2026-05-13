@@ -1,5 +1,6 @@
 build/
 .vscode/ipch/
+.vscode/c_cpp_properties.json
 *.exe
 *.o
 *.obj
