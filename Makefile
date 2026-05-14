@@ -36,11 +36,12 @@ TESTS := \
 	test-ch01-ex12 \
 	test-ch01-ex13-horizontal \
 	test-ch01-ex13-vertical \
-	test-ch01-ex14
+	test-ch01-ex14 \
+	test-ch01-ex15
 
 .PHONY: all build debug release clean list run test test-all \
         test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 \
-        test-ch01-ex13-horizontal test-ch01-ex13-vertical test-ch01-ex14 \
+        test-ch01-ex13-horizontal test-ch01-ex13-vertical test-ch01-ex14 test-ch01-ex15 \
         experiment-ch01-ex02
 
 all: debug
@@ -265,6 +266,15 @@ test-ch01-ex14: debug
 
 	@$(RM_RF) build/debug/chapter01/exercise14.out build/debug/chapter01/exercise14.expected
 	@echo "chapter01/exercise14 tests passed"
+
+test-ch01-ex15: debug
+	@./build/debug/chapter01/exercise15$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise15.out
+	@grep -Fxq 'Fahr Celsius' build/debug/chapter01/exercise15.out
+	@grep -Fxq '   0   -17.8' build/debug/chapter01/exercise15.out
+	@grep -Fxq ' 100    37.8' build/debug/chapter01/exercise15.out
+	@grep -Fxq ' 300   148.9' build/debug/chapter01/exercise15.out
+	@$(RM_RF) build/debug/chapter01/exercise15.out
+	@echo "chapter01/exercise15 tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
