@@ -35,11 +35,12 @@ TESTS := \
 	test-ch01-ex11 \
 	test-ch01-ex12 \
 	test-ch01-ex13-horizontal \
-	test-ch01-ex13-vertical
+	test-ch01-ex13-vertical \
+	test-ch01-ex14
 
 .PHONY: all build debug release clean list run test test-all \
         test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 \
-        test-ch01-ex13-horizontal test-ch01-ex13-vertical \
+        test-ch01-ex13-horizontal test-ch01-ex13-vertical test-ch01-ex14 \
         experiment-ch01-ex02
 
 all: debug
@@ -244,6 +245,26 @@ test-ch01-ex13-vertical: debug
 
 	@$(RM_RF) build/debug/chapter01/exercise13/vertical.out build/debug/chapter01/exercise13/vertical.expected
 	@echo "chapter01/exercise13/vertical tests passed"
+
+test-ch01-ex14: debug
+	@$(RM_RF) build/debug/chapter01/exercise14.out build/debug/chapter01/exercise14.expected
+
+	@printf '%s' 'aab' | ./build/debug/chapter01/exercise14$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise14.out
+	@printf '%s\n' 'Code Char Count Histogram' > build/debug/chapter01/exercise14.expected
+	@printf '%s\n' '  97    a     2 **********' >> build/debug/chapter01/exercise14.expected
+	@printf '%s\n' '  98    b     1 *****' >> build/debug/chapter01/exercise14.expected
+	@$(CMP) -s build/debug/chapter01/exercise14.out build/debug/chapter01/exercise14.expected
+
+	@printf '\040\011\134\012' | ./build/debug/chapter01/exercise14$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise14.out
+	@printf '%s\n' 'Code Char Count Histogram' > build/debug/chapter01/exercise14.expected
+	@printf '%s\n' '   9   \t     1 **********' >> build/debug/chapter01/exercise14.expected
+	@printf '%s\n' '  10   \n     1 **********' >> build/debug/chapter01/exercise14.expected
+	@printf '%s\n' '  32   sp     1 **********' >> build/debug/chapter01/exercise14.expected
+	@printf '%s\n' '  92   \\\\     1 **********' >> build/debug/chapter01/exercise14.expected
+	@$(CMP) -s build/debug/chapter01/exercise14.out build/debug/chapter01/exercise14.expected
+
+	@$(RM_RF) build/debug/chapter01/exercise14.out build/debug/chapter01/exercise14.expected
+	@echo "chapter01/exercise14 tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
