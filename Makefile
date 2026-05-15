@@ -38,11 +38,12 @@ TESTS := \
 	test-ch01-ex13-vertical \
 	test-ch01-ex14 \
 	test-ch01-ex15 \
-	test-ch01-ex16
+	test-ch01-ex16 \
+	test-ch01-ex17
 
 .PHONY: all build debug release clean list run test test-all \
         test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 \
-        test-ch01-ex13-horizontal test-ch01-ex13-vertical test-ch01-ex14 test-ch01-ex15 test-ch01-ex16 \
+        test-ch01-ex13-horizontal test-ch01-ex13-vertical test-ch01-ex14 test-ch01-ex15 test-ch01-ex16 test-ch01-ex17 \
         experiment-ch01-ex02
 
 all: debug
@@ -296,6 +297,37 @@ test-ch01-ex16: debug
 
 	@$(RM_RF) build/debug/chapter01/exercise16.out build/debug/chapter01/exercise16.expected
 	@echo "chapter01/exercise16 tests passed"
+
+test-ch01-ex17: debug
+	@$(RM_RF) build/debug/chapter01/exercise17.out build/debug/chapter01/exercise17.expected
+
+	@printf 'short\n' | ./build/debug/chapter01/exercise17$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise17.out
+	@printf '%s' '' > build/debug/chapter01/exercise17.expected
+	@$(CMP) -s build/debug/chapter01/exercise17.out build/debug/chapter01/exercise17.expected
+
+	@(i=0; while [ $$i -lt 79 ]; do printf a; i=$$((i + 1)); done; printf '\n') | ./build/debug/chapter01/exercise17$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise17.out
+	@printf '%s' '' > build/debug/chapter01/exercise17.expected
+	@$(CMP) -s build/debug/chapter01/exercise17.out build/debug/chapter01/exercise17.expected
+
+	@(i=0; while [ $$i -lt 80 ]; do printf b; i=$$((i + 1)); done; printf '\n') | ./build/debug/chapter01/exercise17$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise17.out
+	@(i=0; while [ $$i -lt 80 ]; do printf b; i=$$((i + 1)); done; printf '\n') > build/debug/chapter01/exercise17.expected
+	@$(CMP) -s build/debug/chapter01/exercise17.out build/debug/chapter01/exercise17.expected
+
+	@printf 'short\n' > build/debug/chapter01/exercise17.input
+	@(i=0; while [ $$i -lt 80 ]; do printf c; i=$$((i + 1)); done; printf '\n') >> build/debug/chapter01/exercise17.input
+	@printf 'tiny\n' >> build/debug/chapter01/exercise17.input
+	@(i=0; while [ $$i -lt 81 ]; do printf d; i=$$((i + 1)); done; printf '\n') >> build/debug/chapter01/exercise17.input
+	@./build/debug/chapter01/exercise17$(EXEEXT) < build/debug/chapter01/exercise17.input | tr -d '\r' > build/debug/chapter01/exercise17.out
+	@(i=0; while [ $$i -lt 80 ]; do printf c; i=$$((i + 1)); done; printf '\n') > build/debug/chapter01/exercise17.expected
+	@(i=0; while [ $$i -lt 81 ]; do printf d; i=$$((i + 1)); done; printf '\n') >> build/debug/chapter01/exercise17.expected
+	@$(CMP) -s build/debug/chapter01/exercise17.out build/debug/chapter01/exercise17.expected
+
+	@(i=0; while [ $$i -lt 1001 ]; do printf x; i=$$((i + 1)); done; printf '\n') | ./build/debug/chapter01/exercise17$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise17.out
+	@(i=0; while [ $$i -lt 999 ]; do printf x; i=$$((i + 1)); done) > build/debug/chapter01/exercise17.expected
+	@$(CMP) -s build/debug/chapter01/exercise17.out build/debug/chapter01/exercise17.expected
+
+	@$(RM_RF) build/debug/chapter01/exercise17.out build/debug/chapter01/exercise17.expected build/debug/chapter01/exercise17.input
+	@echo "chapter01/exercise17 tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
