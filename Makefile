@@ -39,11 +39,13 @@ TESTS := \
 	test-ch01-ex14 \
 	test-ch01-ex15 \
 	test-ch01-ex16 \
-	test-ch01-ex17
+	test-ch01-ex17 \
+	test-ch01-ex18
 
 .PHONY: all build debug release clean list run test test-all \
         test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 \
         test-ch01-ex13-horizontal test-ch01-ex13-vertical test-ch01-ex14 test-ch01-ex15 test-ch01-ex16 test-ch01-ex17 \
+		test-ch01-ex18 \
         experiment-ch01-ex02
 
 all: debug
@@ -328,6 +330,26 @@ test-ch01-ex17: debug
 
 	@$(RM_RF) build/debug/chapter01/exercise17.out build/debug/chapter01/exercise17.expected build/debug/chapter01/exercise17.input
 	@echo "chapter01/exercise17 tests passed"
+
+test-ch01-ex18: debug
+	@$(RM_RF) build/debug/chapter01/exercise18.out build/debug/chapter01/exercise18.expected
+
+	@printf 'abc   \n\tdef\t\t\n\n   \nxyz\n' | ./build/debug/chapter01/exercise18$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise18.out
+	@printf 'abc\n' > build/debug/chapter01/exercise18.expected
+	@printf '\tdef\n' >> build/debug/chapter01/exercise18.expected
+	@printf 'xyz\n' >> build/debug/chapter01/exercise18.expected
+	@$(CMP) -s build/debug/chapter01/exercise18.out build/debug/chapter01/exercise18.expected
+
+	@printf '%s' 'abc   ' | ./build/debug/chapter01/exercise18$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise18.out
+	@printf '%s' 'abc' > build/debug/chapter01/exercise18.expected
+	@$(CMP) -s build/debug/chapter01/exercise18.out build/debug/chapter01/exercise18.expected
+
+	@printf '   \t  ' | ./build/debug/chapter01/exercise18$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise18.out
+	@printf '%s' '' > build/debug/chapter01/exercise18.expected
+	@$(CMP) -s build/debug/chapter01/exercise18.out build/debug/chapter01/exercise18.expected
+
+	@$(RM_RF) build/debug/chapter01/exercise18.out build/debug/chapter01/exercise18.expected
+	@echo "chapter01/exercise18 tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
