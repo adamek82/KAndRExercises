@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+/*
+ * 20 keeps examples and tests readable. A real-world formatter would commonly
+ * use a wider value, such as 80 or 120 columns.
+ */
 #define FOLD_COLUMN 20
 #define TAB_WIDTH 8
 
