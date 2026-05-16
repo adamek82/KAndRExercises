@@ -43,12 +43,13 @@ TESTS := \
 	test-ch01-ex18 \
 	test-ch01-ex19 \
 	test-ch01-ex20 \
-	test-ch01-ex21
+	test-ch01-ex21 \
+	test-ch01-ex22
 
 .PHONY: all build debug release clean list run test test-all \
         test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 \
         test-ch01-ex13-horizontal test-ch01-ex13-vertical test-ch01-ex14 test-ch01-ex15 test-ch01-ex16 test-ch01-ex17 \
-		test-ch01-ex18 test-ch01-ex19 test-ch01-ex20 test-ch01-ex21 \
+		test-ch01-ex18 test-ch01-ex19 test-ch01-ex20 test-ch01-ex21 test-ch01-ex22 \
         experiment-ch01-ex02
 
 all: debug
@@ -427,6 +428,32 @@ test-ch01-ex21: debug
 
 	@$(RM_RF) build/debug/chapter01/exercise21.out build/debug/chapter01/exercise21.expected
 	@echo "chapter01/exercise21 tests passed"
+
+test-ch01-ex22: debug
+	@$(RM_RF) build/debug/chapter01/exercise22.out build/debug/chapter01/exercise22.expected
+
+	@printf 'short\n' | ./build/debug/chapter01/exercise22$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise22.out
+	@printf 'short\n' > build/debug/chapter01/exercise22.expected
+	@$(CMP) -s build/debug/chapter01/exercise22.out build/debug/chapter01/exercise22.expected
+
+	@printf 'one two three four five\n' | ./build/debug/chapter01/exercise22$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise22.out
+	@printf 'one two three four\nfive\n' > build/debug/chapter01/exercise22.expected
+	@$(CMP) -s build/debug/chapter01/exercise22.out build/debug/chapter01/exercise22.expected
+
+	@printf 'abcdefghijklmnopqrstuv\n' | ./build/debug/chapter01/exercise22$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise22.out
+	@printf 'abcdefghijklmnopqrst\nuv\n' > build/debug/chapter01/exercise22.expected
+	@$(CMP) -s build/debug/chapter01/exercise22.out build/debug/chapter01/exercise22.expected
+
+	@printf 'ab\tcd\n' | ./build/debug/chapter01/exercise22$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise22.out
+	@printf 'ab      cd\n' > build/debug/chapter01/exercise22.expected
+	@$(CMP) -s build/debug/chapter01/exercise22.out build/debug/chapter01/exercise22.expected
+
+	@printf '%s' 'one two three four five' | ./build/debug/chapter01/exercise22$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise22.out
+	@printf 'one two three four\nfive' > build/debug/chapter01/exercise22.expected
+	@$(CMP) -s build/debug/chapter01/exercise22.out build/debug/chapter01/exercise22.expected
+
+	@$(RM_RF) build/debug/chapter01/exercise22.out build/debug/chapter01/exercise22.expected
+	@echo "chapter01/exercise22 tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
