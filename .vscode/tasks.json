@@ -174,8 +174,8 @@
         {
             "id": "exercisePath",
             "type": "promptString",
-            "description": "Exercise path, e.g. chapter01/exercise20",
-            "default": "chapter01/exercise20"
+            "description": "Exercise path, e.g. chapter01/exercise21",
+            "default": "chapter01/exercise21"
         }
     ]
 }
