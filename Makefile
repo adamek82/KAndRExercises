@@ -41,12 +41,13 @@ TESTS := \
 	test-ch01-ex16 \
 	test-ch01-ex17 \
 	test-ch01-ex18 \
-	test-ch01-ex19
+	test-ch01-ex19 \
+	test-ch01-ex20
 
 .PHONY: all build debug release clean list run test test-all \
         test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 \
         test-ch01-ex13-horizontal test-ch01-ex13-vertical test-ch01-ex14 test-ch01-ex15 test-ch01-ex16 test-ch01-ex17 \
-		test-ch01-ex18 test-ch01-ex19 \
+		test-ch01-ex18 test-ch01-ex19 test-ch01-ex20 \
         experiment-ch01-ex02
 
 all: debug
@@ -373,6 +374,28 @@ test-ch01-ex19: debug
 
 	@$(RM_RF) build/debug/chapter01/exercise19.out build/debug/chapter01/exercise19.expected
 	@echo "chapter01/exercise19 tests passed"
+
+test-ch01-ex20: debug
+	@$(RM_RF) build/debug/chapter01/exercise20.out build/debug/chapter01/exercise20.expected
+
+	@printf 'a\tb\n' | ./build/debug/chapter01/exercise20$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise20.out
+	@printf 'a       b\n' > build/debug/chapter01/exercise20.expected
+	@$(CMP) -s build/debug/chapter01/exercise20.out build/debug/chapter01/exercise20.expected
+
+	@printf '1234567\tX\n' | ./build/debug/chapter01/exercise20$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise20.out
+	@printf '1234567 X\n' > build/debug/chapter01/exercise20.expected
+	@$(CMP) -s build/debug/chapter01/exercise20.out build/debug/chapter01/exercise20.expected
+
+	@printf '12345678\tX\n' | ./build/debug/chapter01/exercise20$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise20.out
+	@printf '12345678        X\n' > build/debug/chapter01/exercise20.expected
+	@$(CMP) -s build/debug/chapter01/exercise20.out build/debug/chapter01/exercise20.expected
+
+	@printf '\tX\nY\tZ\n' | ./build/debug/chapter01/exercise20$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise20.out
+	@printf '        X\nY       Z\n' > build/debug/chapter01/exercise20.expected
+	@$(CMP) -s build/debug/chapter01/exercise20.out build/debug/chapter01/exercise20.expected
+
+	@$(RM_RF) build/debug/chapter01/exercise20.out build/debug/chapter01/exercise20.expected
+	@echo "chapter01/exercise20 tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
