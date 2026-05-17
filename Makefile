@@ -45,12 +45,13 @@ TESTS := \
 	test-ch01-ex20 \
 	test-ch01-ex21 \
 	test-ch01-ex22 \
-	test-ch01-ex23
+	test-ch01-ex23 \
+	test-ch01-ex24
 
 .PHONY: all build debug release clean list run test test-all \
         test-ch01-ex06 test-ch01-ex07 test-ch01-ex08 test-ch01-ex09 test-ch01-ex10 test-ch01-ex11 test-ch01-ex12 \
         test-ch01-ex13-horizontal test-ch01-ex13-vertical test-ch01-ex14 test-ch01-ex15 test-ch01-ex16 test-ch01-ex17 \
-		test-ch01-ex18 test-ch01-ex19 test-ch01-ex20 test-ch01-ex21 test-ch01-ex22 test-ch01-ex23 \
+		test-ch01-ex18 test-ch01-ex19 test-ch01-ex20 test-ch01-ex21 test-ch01-ex22 test-ch01-ex23 test-ch01-ex24 \
         experiment-ch01-ex02
 
 all: debug
@@ -489,6 +490,44 @@ test-ch01-ex23: debug
 
 	@$(RM_RF) build/debug/chapter01/exercise23.out build/debug/chapter01/exercise23.expected
 	@echo "chapter01/exercise23 tests passed"
+
+test-ch01-ex24: debug
+	@$(RM_RF) build/debug/chapter01/exercise24.out build/debug/chapter01/exercise24.expected
+
+	@printf '%s\n' 'int main(void) { return f(a[0]); }' | ./build/debug/chapter01/exercise24$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise24.out
+	@printf '%s\n' 'ok' > build/debug/chapter01/exercise24.expected
+	@$(CMP) -s build/debug/chapter01/exercise24.out build/debug/chapter01/exercise24.expected
+
+	@printf '%s\n' 'int main(void) { return f(a[0]); ' | ./build/debug/chapter01/exercise24$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise24.out
+	@printf '%s\n' 'unmatched opening {' > build/debug/chapter01/exercise24.expected
+	@$(CMP) -s build/debug/chapter01/exercise24.out build/debug/chapter01/exercise24.expected
+
+	@printf '%s\n' 'int main(void) { return f(a[0]]); }' | ./build/debug/chapter01/exercise24$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise24.out
+	@printf '%s\n' 'unmatched closing ]' > build/debug/chapter01/exercise24.expected
+	@$(CMP) -s build/debug/chapter01/exercise24.out build/debug/chapter01/exercise24.expected
+
+	@printf '%s\n' 'int main(void) { return ([)]); }' | ./build/debug/chapter01/exercise24$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise24.out
+	@printf '%s\n' 'unmatched closing )' > build/debug/chapter01/exercise24.expected
+	@$(CMP) -s build/debug/chapter01/exercise24.out build/debug/chapter01/exercise24.expected
+
+	@printf '%s\n' 'char *s = "({[ not syntax ]})"; int x[1];' | ./build/debug/chapter01/exercise24$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise24.out
+	@printf '%s\n' 'ok' > build/debug/chapter01/exercise24.expected
+	@$(CMP) -s build/debug/chapter01/exercise24.out build/debug/chapter01/exercise24.expected
+
+	@printf "%s\n" "char c = '}'; int x[1];" | ./build/debug/chapter01/exercise24$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise24.out
+	@printf '%s\n' 'ok' > build/debug/chapter01/exercise24.expected
+	@$(CMP) -s build/debug/chapter01/exercise24.out build/debug/chapter01/exercise24.expected
+
+	@printf '%s\n' '/* }]) ignored */ int main(void) { return 0; }' | ./build/debug/chapter01/exercise24$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise24.out
+	@printf '%s\n' 'ok' > build/debug/chapter01/exercise24.expected
+	@$(CMP) -s build/debug/chapter01/exercise24.out build/debug/chapter01/exercise24.expected
+
+	@printf '%s\n' 'int x; // }]) ignored' 'int y[1];' | ./build/debug/chapter01/exercise24$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise24.out
+	@printf '%s\n' 'ok' > build/debug/chapter01/exercise24.expected
+	@$(CMP) -s build/debug/chapter01/exercise24.out build/debug/chapter01/exercise24.expected
+
+	@$(RM_RF) build/debug/chapter01/exercise24.out build/debug/chapter01/exercise24.expected
+	@echo "chapter01/exercise24 tests passed"
 
 list:
 	@printf '%s\n' $(EXERCISES)
