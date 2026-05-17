@@ -463,6 +463,14 @@ test-ch01-ex23: debug
 	@printf '%s\n' 'int x;' > build/debug/chapter01/exercise23.expected
 	@$(CMP) -s build/debug/chapter01/exercise23.out build/debug/chapter01/exercise23.expected
 
+	@printf '%s' '/' | ./build/debug/chapter01/exercise23$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise23.out
+	@printf '%s' '/' > build/debug/chapter01/exercise23.expected
+	@$(CMP) -s build/debug/chapter01/exercise23.out build/debug/chapter01/exercise23.expected
+
+	@printf '%s' 'abc/' | ./build/debug/chapter01/exercise23$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise23.out
+	@printf '%s' 'abc/' > build/debug/chapter01/exercise23.expected
+	@$(CMP) -s build/debug/chapter01/exercise23.out build/debug/chapter01/exercise23.expected
+
 	@printf '%s\n' 'printf("/* not a comment */");/* remove */' | ./build/debug/chapter01/exercise23$(EXEEXT) | tr -d '\r' > build/debug/chapter01/exercise23.out
 	@printf '%s\n' 'printf("/* not a comment */"); ' > build/debug/chapter01/exercise23.expected
 	@$(CMP) -s build/debug/chapter01/exercise23.out build/debug/chapter01/exercise23.expected
