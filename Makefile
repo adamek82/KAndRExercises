@@ -271,7 +271,7 @@ test-ch01-ex14: debug
 	@printf '%s\n' '   9   \t     1 **********' >> build/debug/chapter01/exercise14.expected
 	@printf '%s\n' '  10   \n     1 **********' >> build/debug/chapter01/exercise14.expected
 	@printf '%s\n' '  32   sp     1 **********' >> build/debug/chapter01/exercise14.expected
-	@printf '%s%s%s\n' '  92   ' '\\' '     1 **********' >> build/debug/chapter01/exercise14.expected
+	@printf '  92   \134\134     1 **********\n' >> build/debug/chapter01/exercise14.expected
 	@$(CMP) -s build/debug/chapter01/exercise14.out build/debug/chapter01/exercise14.expected
 
 	@$(RM_RF) build/debug/chapter01/exercise14.out build/debug/chapter01/exercise14.expected
