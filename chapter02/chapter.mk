@@ -1,6 +1,7 @@
 CHAPTER02_TESTS := \
 	test-ch02-ex01 \
-	test-ch02-ex02
+	test-ch02-ex02 \
+	test-ch02-ex03
 
 TESTS += $(CHAPTER02_TESTS)
 PHONY_TARGETS += $(CHAPTER02_TESTS)
@@ -43,3 +44,26 @@ test-ch02-ex02: debug
 
 	@$(RM_RF) build/debug/chapter02/exercise02.out build/debug/chapter02/exercise02.expected
 	@echo "chapter02/exercise02 tests passed"
+
+test-ch02-ex03: debug
+	@$(RM_RF) build/debug/chapter02/exercise03.out build/debug/chapter02/exercise03.expected
+
+	@./build/debug/chapter02/exercise03$(EXEEXT) | tr -d '\r' > build/debug/chapter02/exercise03.out
+	@printf '%s\n' '0 -> 0' > build/debug/chapter02/exercise03.expected
+	@printf '%s\n' '1 -> 1' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' '9 -> 9' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' 'a -> 10' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' 'f -> 15' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' 'A -> 10' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' 'F -> 15' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' '10 -> 16' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' '0x10 -> 16' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' '0X10 -> 16' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' '7f -> 127' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' '0xff -> 255' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' '0XABC -> 2748' >> build/debug/chapter02/exercise03.expected
+	@printf '%s\n' '123g -> 291' >> build/debug/chapter02/exercise03.expected
+	@$(CMP) -s build/debug/chapter02/exercise03.out build/debug/chapter02/exercise03.expected
+
+	@$(RM_RF) build/debug/chapter02/exercise03.out build/debug/chapter02/exercise03.expected
+	@echo "chapter02/exercise03 tests passed"
