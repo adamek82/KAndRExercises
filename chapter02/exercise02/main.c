@@ -45,7 +45,7 @@ int get_line(char s[], int lim)
     int c, i;
     enum loop_state keep_going;
 
-    c = 0;
+    c = 0;  /* in case lim is too small to read any character */
     i = 0;
     keep_going = LOOP_YES;
 
