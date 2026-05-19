@@ -2,7 +2,8 @@ CHAPTER02_TESTS := \
 	test-ch02-ex01 \
 	test-ch02-ex02 \
 	test-ch02-ex03 \
-	test-ch02-ex04
+	test-ch02-ex04 \
+	test-ch02-ex05
 
 TESTS += $(CHAPTER02_TESTS)
 PHONY_TARGETS += $(CHAPTER02_TESTS)
@@ -82,3 +83,19 @@ test-ch02-ex04: debug
 
 	@$(RM_RF) build/debug/chapter02/exercise04.out build/debug/chapter02/exercise04.expected
 	@echo "chapter02/exercise04 tests passed"
+
+test-ch02-ex05: debug
+	@$(RM_RF) build/debug/chapter02/exercise05.out build/debug/chapter02/exercise05.expected
+
+	@./build/debug/chapter02/exercise05$(EXEEXT) | tr -d '\r' > build/debug/chapter02/exercise05.out
+	@printf '%s\n' 'hello, world / od -> 4' > build/debug/chapter02/exercise05.expected
+	@printf '%s\n' 'hello, world / xyz -> -1' >> build/debug/chapter02/exercise05.expected
+	@printf '%s\n' 'abc / c -> 2' >> build/debug/chapter02/exercise05.expected
+	@printf '%s\n' 'abc / a -> 0' >> build/debug/chapter02/exercise05.expected
+	@printf '%s\n' 'abc / empty -> -1' >> build/debug/chapter02/exercise05.expected
+	@printf '%s\n' 'empty / abc -> -1' >> build/debug/chapter02/exercise05.expected
+	@printf '%s\n' 'mississippi / ps -> 2' >> build/debug/chapter02/exercise05.expected
+	@$(CMP) -s build/debug/chapter02/exercise05.out build/debug/chapter02/exercise05.expected
+
+	@$(RM_RF) build/debug/chapter02/exercise05.out build/debug/chapter02/exercise05.expected
+	@echo "chapter02/exercise05 tests passed"
