@@ -4,7 +4,8 @@ CHAPTER02_TESTS := \
 	test-ch02-ex03 \
 	test-ch02-ex04 \
 	test-ch02-ex05 \
-	test-ch02-ex06
+	test-ch02-ex06 \
+	test-ch02-ex07
 
 TESTS += $(CHAPTER02_TESTS)
 PHONY_TARGETS += $(CHAPTER02_TESTS)
@@ -114,3 +115,17 @@ test-ch02-ex06: debug
 
 	@$(RM_RF) build/debug/chapter02/exercise06.out build/debug/chapter02/exercise06.expected
 	@echo "chapter02/exercise06 tests passed"
+
+test-ch02-ex07: debug
+	@$(RM_RF) build/debug/chapter02/exercise07.out build/debug/chapter02/exercise07.expected
+
+	@./build/debug/chapter02/exercise07$(EXEEXT) | tr -d '\r' > build/debug/chapter02/exercise07.out
+	@printf '%s\n' 'invert(0x0000, 7, 4) = 0x00f0' > build/debug/chapter02/exercise07.expected
+	@printf '%s\n' 'invert(0xffff, 7, 4) = 0xff0f' >> build/debug/chapter02/exercise07.expected
+	@printf '%s\n' 'invert(0xaaaa, 7, 4) = 0xaa5a' >> build/debug/chapter02/exercise07.expected
+	@printf '%s\n' 'invert(0x1234, 11, 4) = 0x1d34' >> build/debug/chapter02/exercise07.expected
+	@printf '%s\n' 'invert(0x1234, 3, 4) = 0x123b' >> build/debug/chapter02/exercise07.expected
+	@$(CMP) -s build/debug/chapter02/exercise07.out build/debug/chapter02/exercise07.expected
+
+	@$(RM_RF) build/debug/chapter02/exercise07.out build/debug/chapter02/exercise07.expected
+	@echo "chapter02/exercise07 tests passed"
