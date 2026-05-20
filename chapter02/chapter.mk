@@ -3,7 +3,8 @@ CHAPTER02_TESTS := \
 	test-ch02-ex02 \
 	test-ch02-ex03 \
 	test-ch02-ex04 \
-	test-ch02-ex05
+	test-ch02-ex05 \
+	test-ch02-ex06
 
 TESTS += $(CHAPTER02_TESTS)
 PHONY_TARGETS += $(CHAPTER02_TESTS)
@@ -99,3 +100,17 @@ test-ch02-ex05: debug
 
 	@$(RM_RF) build/debug/chapter02/exercise05.out build/debug/chapter02/exercise05.expected
 	@echo "chapter02/exercise05 tests passed"
+
+test-ch02-ex06: debug
+	@$(RM_RF) build/debug/chapter02/exercise06.out build/debug/chapter02/exercise06.expected
+
+	@./build/debug/chapter02/exercise06$(EXEEXT) | tr -d '\r' > build/debug/chapter02/exercise06.out
+	@printf '%s\n' 'setbits(0xffff, 7, 4, 0x0) = 0xff0f' > build/debug/chapter02/exercise06.expected
+	@printf '%s\n' 'setbits(0x0000, 7, 4, 0xf) = 0x00f0' >> build/debug/chapter02/exercise06.expected
+	@printf '%s\n' 'setbits(0xaaaa, 7, 4, 0x5) = 0xaa5a' >> build/debug/chapter02/exercise06.expected
+	@printf '%s\n' 'setbits(0x1234, 11, 4, 0xf) = 0x1f34' >> build/debug/chapter02/exercise06.expected
+	@printf '%s\n' 'setbits(0x1234, 3, 4, 0x0) = 0x1230' >> build/debug/chapter02/exercise06.expected
+	@$(CMP) -s build/debug/chapter02/exercise06.out build/debug/chapter02/exercise06.expected
+
+	@$(RM_RF) build/debug/chapter02/exercise06.out build/debug/chapter02/exercise06.expected
+	@echo "chapter02/exercise06 tests passed"
