@@ -5,7 +5,8 @@ CHAPTER02_TESTS := \
 	test-ch02-ex04 \
 	test-ch02-ex05 \
 	test-ch02-ex06 \
-	test-ch02-ex07
+	test-ch02-ex07 \
+	test-ch02-ex08
 
 TESTS += $(CHAPTER02_TESTS)
 PHONY_TARGETS += $(CHAPTER02_TESTS)
@@ -129,3 +130,14 @@ test-ch02-ex07: debug
 
 	@$(RM_RF) build/debug/chapter02/exercise07.out build/debug/chapter02/exercise07.expected
 	@echo "chapter02/exercise07 tests passed"
+
+test-ch02-ex08: debug
+	@$(RM_RF) build/debug/chapter02/exercise08.out
+
+	@./build/debug/chapter02/exercise08$(EXEEXT) | tr -d '\r' > build/debug/chapter02/exercise08.out
+	@grep -Fxq 'rightrot checks: ok' build/debug/chapter02/exercise08.out
+	@grep -Fq 'rightrot(0x12345678, 4)' build/debug/chapter02/exercise08.out
+	@grep -Fq 'rightrot(0x12345678, 32)' build/debug/chapter02/exercise08.out
+
+	@$(RM_RF) build/debug/chapter02/exercise08.out
+	@echo "chapter02/exercise08 tests passed"
