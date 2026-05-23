@@ -6,7 +6,8 @@ CHAPTER02_TESTS := \
 	test-ch02-ex05 \
 	test-ch02-ex06 \
 	test-ch02-ex07 \
-	test-ch02-ex08
+	test-ch02-ex08 \
+	test-ch02-ex09
 
 TESTS += $(CHAPTER02_TESTS)
 PHONY_TARGETS += $(CHAPTER02_TESTS)
@@ -141,3 +142,19 @@ test-ch02-ex08: debug
 
 	@$(RM_RF) build/debug/chapter02/exercise08.out
 	@echo "chapter02/exercise08 tests passed"
+
+test-ch02-ex09: debug
+	@$(RM_RF) build/debug/chapter02/exercise09.out build/debug/chapter02/exercise09.expected
+
+	@./build/debug/chapter02/exercise09$(EXEEXT) | tr -d '\r' > build/debug/chapter02/exercise09.out
+	@printf '%s\n' 'bitcount(0x00000000) = 0' > build/debug/chapter02/exercise09.expected
+	@printf '%s\n' 'bitcount(0x00000001) = 1' >> build/debug/chapter02/exercise09.expected
+	@printf '%s\n' 'bitcount(0x00000009) = 2' >> build/debug/chapter02/exercise09.expected
+	@printf '%s\n' 'bitcount(0x0000000f) = 4' >> build/debug/chapter02/exercise09.expected
+	@printf '%s\n' 'bitcount(0xffffffff) = 32' >> build/debug/chapter02/exercise09.expected
+	@printf '%s\n' 'bitcount(0x12345678) = 13' >> build/debug/chapter02/exercise09.expected
+	@printf '%s\n' 'bitcount checks: ok' >> build/debug/chapter02/exercise09.expected
+	@$(CMP) -s build/debug/chapter02/exercise09.out build/debug/chapter02/exercise09.expected
+
+	@$(RM_RF) build/debug/chapter02/exercise09.out build/debug/chapter02/exercise09.expected
+	@echo "chapter02/exercise09 tests passed"
