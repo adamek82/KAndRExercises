@@ -6,7 +6,7 @@ CC := gcc
 CMP := C:/msys64/usr/bin/cmp.exe
 EXEEXT := .exe
 else
-CC ?= gcc
+CC := gcc-14
 CMP := cmp
 EXEEXT :=
 endif
