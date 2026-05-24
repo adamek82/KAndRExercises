@@ -97,9 +97,8 @@ int binsearch_original(int x, int v[], int n)
 /*
  * Binary search with only one comparison against v[mid] inside the loop.
  *
- * This finds the first position at which x could appear. If x is present,
- * low will point to it after the loop. If not, low will point to the first
- * greater element, or the search will fail the final equality check.
+ * This finds the first position at which x could appear, if such
+ * a position exists within the array. Otherwise, low ends at n - 1.
  */
 int binsearch_one_test(int x, int v[], int n)
 {
