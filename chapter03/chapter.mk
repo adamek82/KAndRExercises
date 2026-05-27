@@ -1,6 +1,7 @@
 CHAPTER03_TESTS := \
 	test-ch03-ex01 \
-	test-ch03-ex02
+	test-ch03-ex02 \
+	test-ch03-ex03
 
 TESTS += $(CHAPTER03_TESTS)
 PHONY_TARGETS += $(CHAPTER03_TESTS)
@@ -43,3 +44,22 @@ test-ch03-ex02: debug
 
 	@$(RM_RF) build/debug/chapter03/exercise02.out build/debug/chapter03/exercise02.expected
 	@echo "chapter03/exercise02 tests passed"
+
+test-ch03-ex03: debug
+	@$(RM_RF) build/debug/chapter03/exercise03.out build/debug/chapter03/exercise03.expected
+
+	@./build/debug/chapter03/exercise03$(EXEEXT) | tr -d '\r' > build/debug/chapter03/exercise03.out
+	@printf '%s\n' 'expand 1: abcdefghijklmnopqrstuvwxyz' > build/debug/chapter03/exercise03.expected
+	@printf '%s\n' 'expand 2: ABCDEFGHIJKLMNOPQRSTUVWXYZ' >> build/debug/chapter03/exercise03.expected
+	@printf '%s\n' 'expand 3: 0123456789' >> build/debug/chapter03/exercise03.expected
+	@printf '%s\n' 'expand 4: abc' >> build/debug/chapter03/exercise03.expected
+	@printf '%s\n' 'expand 5: abcdefghijklmnopqrstuvwxyz0123456789' >> build/debug/chapter03/exercise03.expected
+	@printf '%s\n' 'expand 6: -abcdefghijklmnopqrstuvwxyz' >> build/debug/chapter03/exercise03.expected
+	@printf '%s\n' 'expand 7: abcdefghijklmnopqrstuvwxyz-' >> build/debug/chapter03/exercise03.expected
+	@printf '%s\n' 'expand 8: a-Z' >> build/debug/chapter03/exercise03.expected
+	@printf '%s\n' 'expand 9: z-a' >> build/debug/chapter03/exercise03.expected
+	@printf '%s\n' 'expand 10: a-9' >> build/debug/chapter03/exercise03.expected
+	@$(CMP) -s build/debug/chapter03/exercise03.out build/debug/chapter03/exercise03.expected
+
+	@$(RM_RF) build/debug/chapter03/exercise03.out build/debug/chapter03/exercise03.expected
+	@echo "chapter03/exercise03 tests passed"
