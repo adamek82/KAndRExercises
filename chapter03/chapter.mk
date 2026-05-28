@@ -2,7 +2,8 @@ CHAPTER03_TESTS := \
 	test-ch03-ex01 \
 	test-ch03-ex02 \
 	test-ch03-ex03 \
-	test-ch03-ex04
+	test-ch03-ex04 \
+	test-ch03-ex05
 
 TESTS += $(CHAPTER03_TESTS)
 PHONY_TARGETS += $(CHAPTER03_TESTS)
@@ -78,3 +79,20 @@ test-ch03-ex04: debug
 
 	@$(RM_RF) build/debug/chapter03/exercise04.out
 	@echo "chapter03/exercise04 tests passed"
+
+test-ch03-ex05: debug
+	@$(RM_RF) build/debug/chapter03/exercise05.out
+
+	@./build/debug/chapter03/exercise05$(EXEEXT) | tr -d '\r' > build/debug/chapter03/exercise05.out
+	@grep -Fxq 'itob(0, 2) = 0' build/debug/chapter03/exercise05.out
+	@grep -Fxq 'itob(31, 2) = 11111' build/debug/chapter03/exercise05.out
+	@grep -Fxq 'itob(31, 16) = 1f' build/debug/chapter03/exercise05.out
+	@grep -Fxq 'itob(-31, 16) = -1f' build/debug/chapter03/exercise05.out
+	@grep -Fxq 'itob(255, 16) = ff' build/debug/chapter03/exercise05.out
+	@grep -Fxq 'itob(35, 36) = z' build/debug/chapter03/exercise05.out
+	@grep -Fq 'itob(INT_MIN, 10) = ' build/debug/chapter03/exercise05.out
+	@grep -Fq 'itob(INT_MIN, 16) = ' build/debug/chapter03/exercise05.out
+	@grep -Fxq 'itob checks: ok' build/debug/chapter03/exercise05.out
+
+	@$(RM_RF) build/debug/chapter03/exercise05.out
+	@echo "chapter03/exercise05 tests passed"
