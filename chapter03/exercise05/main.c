@@ -64,6 +64,10 @@ void itob(int n, char s[], int b)
     int i = 0;
     int sign = n;
 
+    /*
+     * Bases below 2 are rejected. Unary notation exists, but it is not a positional
+     * base representation and does not fit the digit-by-remainder algorithm below.
+     */
     if (b < 2 || b > 36) {
         s[0] = '\0';
         return;
