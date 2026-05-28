@@ -3,7 +3,8 @@ CHAPTER03_TESTS := \
 	test-ch03-ex02 \
 	test-ch03-ex03 \
 	test-ch03-ex04 \
-	test-ch03-ex05
+	test-ch03-ex05 \
+	test-ch03-ex06
 
 TESTS += $(CHAPTER03_TESTS)
 PHONY_TARGETS += $(CHAPTER03_TESTS)
@@ -96,3 +97,18 @@ test-ch03-ex05: debug
 
 	@$(RM_RF) build/debug/chapter03/exercise05.out
 	@echo "chapter03/exercise05 tests passed"
+
+test-ch03-ex06: debug
+	@$(RM_RF) build/debug/chapter03/exercise06.out
+
+	@./build/debug/chapter03/exercise06$(EXEEXT) | tr -d '\r' > build/debug/chapter03/exercise06.out
+	@grep -Fxq "itoa(0, 5) = '    0'" build/debug/chapter03/exercise06.out
+	@grep -Fxq "itoa(123, 5) = '  123'" build/debug/chapter03/exercise06.out
+	@grep -Fxq "itoa(-123, 6) = '  -123'" build/debug/chapter03/exercise06.out
+	@grep -Fxq "itoa(12345, 3) = '12345'" build/debug/chapter03/exercise06.out
+	@grep -Fq "itoa(INT_MIN, 0) = '" build/debug/chapter03/exercise06.out
+	@grep -Fq "itoa(INT_MIN, 15) = '" build/debug/chapter03/exercise06.out
+	@grep -Fxq 'itoa checks: ok' build/debug/chapter03/exercise06.out
+
+	@$(RM_RF) build/debug/chapter03/exercise06.out
+	@echo "chapter03/exercise06 tests passed"
