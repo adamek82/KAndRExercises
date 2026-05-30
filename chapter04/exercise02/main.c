@@ -45,12 +45,9 @@ int main(void)
 
 double atof_kr(char s[])
 {
-    double val;
-    double power;
-    int i;
-    int sign;
-    int exponent;
-    int exponent_sign;
+    double val, power;
+    int i, sign;
+    int exponent, exponent_sign;
 
     for (i = 0; isspace((unsigned char) s[i]); ++i) {
         ;
