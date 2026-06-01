@@ -2,7 +2,8 @@ CHAPTER04_TESTS := \
 	test-ch04-ex01 \
 	test-ch04-ex02 \
 	test-ch04-ex03 \
-	test-ch04-ex04
+	test-ch04-ex04 \
+	test-ch04-ex05
 
 TESTS += $(CHAPTER04_TESTS)
 PHONY_TARGETS += $(CHAPTER04_TESTS)
@@ -12,6 +13,10 @@ $(OUTDIR)/chapter04/exercise03$(EXEEXT): chapter04/exercise03/main.c
 	$(CC) $(CFLAGS) $< -o $@ -lm
 
 $(OUTDIR)/chapter04/exercise04$(EXEEXT): chapter04/exercise04/main.c
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(CFLAGS) $< -o $@ -lm
+
+$(OUTDIR)/chapter04/exercise05$(EXEEXT): chapter04/exercise05/main.c
 	$(MKDIR_P) $(dir $@)
 	$(CC) $(CFLAGS) $< -o $@ -lm
 
@@ -77,3 +82,19 @@ test-ch04-ex04: debug
 
 	@$(RM_RF) build/debug/chapter04/exercise04.out build/debug/chapter04/exercise04.expected
 	@echo "chapter04/exercise04 tests passed"
+
+test-ch04-ex05: debug
+	@$(RM_RF) build/debug/chapter04/exercise05.out build/debug/chapter04/exercise05.expected
+
+	@printf '3.14159265 2 / sin\n0 cos\n2 exp\n2 3 pow\n2 3 pow 4 2 pow +\n5 d *\n2 5 s -\n' | ./build/debug/chapter04/exercise05$(EXEEXT) | tr -d '\r' > build/debug/chapter04/exercise05.out
+	@printf '\t1\n' > build/debug/chapter04/exercise05.expected
+	@printf '\t1\n' >> build/debug/chapter04/exercise05.expected
+	@printf '\t7.3890561\n' >> build/debug/chapter04/exercise05.expected
+	@printf '\t8\n' >> build/debug/chapter04/exercise05.expected
+	@printf '\t24\n' >> build/debug/chapter04/exercise05.expected
+	@printf '\t25\n' >> build/debug/chapter04/exercise05.expected
+	@printf '\t3\n' >> build/debug/chapter04/exercise05.expected
+	@$(CMP) -s build/debug/chapter04/exercise05.out build/debug/chapter04/exercise05.expected
+
+	@$(RM_RF) build/debug/chapter04/exercise05.out build/debug/chapter04/exercise05.expected
+	@echo "chapter04/exercise05 tests passed"
