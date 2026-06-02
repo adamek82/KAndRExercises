@@ -6,7 +6,8 @@ CHAPTER04_TESTS := \
 	test-ch04-ex05 \
 	test-ch04-ex06 \
 	test-ch04-ex07 \
-	test-ch04-ex08
+	test-ch04-ex08 \
+	test-ch04-ex09
 
 TESTS += $(CHAPTER04_TESTS)
 PHONY_TARGETS += $(CHAPTER04_TESTS)
@@ -146,3 +147,15 @@ test-ch04-ex08: debug
 
 	@$(RM_RF) build/debug/chapter04/exercise08.out build/debug/chapter04/exercise08.expected
 	@echo "chapter04/exercise08 tests passed"
+
+test-ch04-ex09: debug
+	@$(RM_RF) build/debug/chapter04/exercise09.out build/debug/chapter04/exercise09.expected
+
+	@printf '' | ./build/debug/chapter04/exercise09$(EXEEXT) | tr -d '\r' > build/debug/chapter04/exercise09.out
+	@printf 'A\n' > build/debug/chapter04/exercise09.expected
+	@printf 'EOF pushed back and read again\n' >> build/debug/chapter04/exercise09.expected
+	@printf 'EOF read from empty input\n' >> build/debug/chapter04/exercise09.expected
+	@$(CMP) -s build/debug/chapter04/exercise09.out build/debug/chapter04/exercise09.expected
+
+	@$(RM_RF) build/debug/chapter04/exercise09.out build/debug/chapter04/exercise09.expected
+	@echo "chapter04/exercise09 tests passed"
