@@ -3,7 +3,8 @@ CHAPTER04_TESTS := \
 	test-ch04-ex02 \
 	test-ch04-ex03 \
 	test-ch04-ex04 \
-	test-ch04-ex05
+	test-ch04-ex05 \
+	test-ch04-ex06
 
 TESTS += $(CHAPTER04_TESTS)
 PHONY_TARGETS += $(CHAPTER04_TESTS)
@@ -98,3 +99,19 @@ test-ch04-ex05: debug
 
 	@$(RM_RF) build/debug/chapter04/exercise05.out build/debug/chapter04/exercise05.expected
 	@echo "chapter04/exercise05 tests passed"
+
+test-ch04-ex06: debug
+	@$(RM_RF) build/debug/chapter04/exercise06.out build/debug/chapter04/exercise06.expected
+
+	@printf '3 :A\nA 2 *\nv 4 +\n2 3 pow :B\nB 1 +\n5 d *\n3.14159265 2 / sin\n' | ./build/debug/chapter04/exercise06$(EXEEXT) | tr -d '\r' > build/debug/chapter04/exercise06.out
+	@printf '\t3\n' > build/debug/chapter04/exercise06.expected
+	@printf '\t6\n' >> build/debug/chapter04/exercise06.expected
+	@printf '\t10\n' >> build/debug/chapter04/exercise06.expected
+	@printf '\t8\n' >> build/debug/chapter04/exercise06.expected
+	@printf '\t9\n' >> build/debug/chapter04/exercise06.expected
+	@printf '\t25\n' >> build/debug/chapter04/exercise06.expected
+	@printf '\t1\n' >> build/debug/chapter04/exercise06.expected
+	@$(CMP) -s build/debug/chapter04/exercise06.out build/debug/chapter04/exercise06.expected
+
+	@$(RM_RF) build/debug/chapter04/exercise06.out build/debug/chapter04/exercise06.expected
+	@echo "chapter04/exercise06 tests passed"
