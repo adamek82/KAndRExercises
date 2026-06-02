@@ -22,6 +22,10 @@ $(OUTDIR)/chapter04/exercise05$(EXEEXT): chapter04/exercise05/main.c
 	$(MKDIR_P) $(dir $@)
 	$(CC) $(CFLAGS) $< -o $@ -lm
 
+$(OUTDIR)/chapter04/exercise06$(EXEEXT): chapter04/exercise06/main.c
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(CFLAGS) $< -o $@ -lm
+
 test-ch04-ex01: debug
 	@$(RM_RF) build/debug/chapter04/exercise01.out
 
