@@ -5,7 +5,8 @@ CHAPTER04_TESTS := \
 	test-ch04-ex04 \
 	test-ch04-ex05 \
 	test-ch04-ex06 \
-	test-ch04-ex07
+	test-ch04-ex07 \
+	test-ch04-ex08
 
 TESTS += $(CHAPTER04_TESTS)
 PHONY_TARGETS += $(CHAPTER04_TESTS)
@@ -132,3 +133,16 @@ test-ch04-ex07: debug
 
 	@$(RM_RF) build/debug/chapter04/exercise07.out build/debug/chapter04/exercise07.expected
 	@echo "chapter04/exercise07 tests passed"
+
+test-ch04-ex08: debug
+	@$(RM_RF) build/debug/chapter04/exercise08.out build/debug/chapter04/exercise08.expected
+
+	@printf '' | ./build/debug/chapter04/exercise08$(EXEEXT) | tr -d '\r' > build/debug/chapter04/exercise08.out
+	@printf 'A\n' > build/debug/chapter04/exercise08.expected
+	@printf 'ungetch: too many characters\n' >> build/debug/chapter04/exercise08.expected
+	@printf 'B\n' >> build/debug/chapter04/exercise08.expected
+	@printf 'EOF\n' >> build/debug/chapter04/exercise08.expected
+	@$(CMP) -s build/debug/chapter04/exercise08.out build/debug/chapter04/exercise08.expected
+
+	@$(RM_RF) build/debug/chapter04/exercise08.out build/debug/chapter04/exercise08.expected
+	@echo "chapter04/exercise08 tests passed"
