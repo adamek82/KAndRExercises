@@ -341,7 +341,7 @@ int getop(char s[])
 
 int get_line(char s[], int limit)
 {
-    int c;
+    int c = EOF;
     int i = 0;
 
     while (i < limit - 1 && (c = getchar()) != EOF && c != '\n') {
