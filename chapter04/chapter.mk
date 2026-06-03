@@ -13,23 +13,12 @@ CHAPTER04_TESTS := \
 TESTS += $(CHAPTER04_TESTS)
 PHONY_TARGETS += $(CHAPTER04_TESTS)
 
-$(OUTDIR)/chapter04/exercise03$(EXEEXT): chapter04/exercise03/main.c
-	$(MKDIR_P) $(dir $@)
-	$(CC) $(CFLAGS) $< -o $@ -lm
+CH04_LIBM_EXERCISES := 03 04 05 06 10
 
-$(OUTDIR)/chapter04/exercise04$(EXEEXT): chapter04/exercise04/main.c
-	$(MKDIR_P) $(dir $@)
-	$(CC) $(CFLAGS) $< -o $@ -lm
+CH04_LIBM_TARGETS := \
+	$(addsuffix $(EXEEXT),$(addprefix $(OUTDIR)/chapter04/exercise,$(CH04_LIBM_EXERCISES)))
 
-$(OUTDIR)/chapter04/exercise05$(EXEEXT): chapter04/exercise05/main.c
-	$(MKDIR_P) $(dir $@)
-	$(CC) $(CFLAGS) $< -o $@ -lm
-
-$(OUTDIR)/chapter04/exercise06$(EXEEXT): chapter04/exercise06/main.c
-	$(MKDIR_P) $(dir $@)
-	$(CC) $(CFLAGS) $< -o $@ -lm
-
-$(OUTDIR)/chapter04/exercise10$(EXEEXT): chapter04/exercise10/main.c
+$(CH04_LIBM_TARGETS): $(OUTDIR)/chapter04/exercise%$(EXEEXT): chapter04/exercise%/main.c
 	$(MKDIR_P) $(dir $@)
 	$(CC) $(CFLAGS) $< -o $@ -lm
 
