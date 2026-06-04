@@ -237,6 +237,10 @@ void mathfn(char s[])
     }
 }
 
+/*
+ * line has static storage duration, so it is initially filled with '\0'.
+ * This makes the first getop call read the first input line.
+ */
 char line[MAXLINE];
 int li = 0;
 
