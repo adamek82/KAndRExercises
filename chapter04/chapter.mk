@@ -8,7 +8,8 @@ CHAPTER04_TESTS := \
 	test-ch04-ex07 \
 	test-ch04-ex08 \
 	test-ch04-ex09 \
-	test-ch04-ex10
+	test-ch04-ex10 \
+	test-ch04-ex12
 
 TESTS += $(CHAPTER04_TESTS)
 PHONY_TARGETS += $(CHAPTER04_TESTS)
@@ -171,3 +172,17 @@ test-ch04-ex10: debug
 
 	@$(RM_RF) build/debug/chapter04/exercise10.out build/debug/chapter04/exercise10.expected
 	@echo "chapter04/exercise10 tests passed"
+
+test-ch04-ex12: debug
+	@$(RM_RF) build/debug/chapter04/exercise12.out
+
+	@./build/debug/chapter04/exercise12$(EXEEXT) | tr -d '\r' > build/debug/chapter04/exercise12.out
+	@grep -Fxq 'itoa(0) = 0' build/debug/chapter04/exercise12.out
+	@grep -Fxq 'itoa(12345) = 12345' build/debug/chapter04/exercise12.out
+	@grep -Fxq 'itoa(-12345) = -12345' build/debug/chapter04/exercise12.out
+	@grep -Fxq 'itoa(INT_MAX) = 2147483647' build/debug/chapter04/exercise12.out
+	@grep -Fxq 'itoa(INT_MIN) = -2147483648' build/debug/chapter04/exercise12.out
+	@grep -Fxq 'itoa checks: ok' build/debug/chapter04/exercise12.out
+
+	@$(RM_RF) build/debug/chapter04/exercise12.out
+	@echo "chapter04/exercise12 tests passed"
