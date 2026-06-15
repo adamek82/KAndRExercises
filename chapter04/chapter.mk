@@ -11,7 +11,8 @@ CHAPTER04_TESTS := \
 	test-ch04-ex10 \
 	test-ch04-ex11 \
 	test-ch04-ex12 \
-	test-ch04-ex13
+	test-ch04-ex13 \
+	test-ch04-ex14
 
 TESTS += $(CHAPTER04_TESTS)
 PHONY_TARGETS += $(CHAPTER04_TESTS)
@@ -220,3 +221,15 @@ test-ch04-ex13: debug
 
 	@$(RM_RF) build/debug/chapter04/exercise13.out
 	@echo "chapter04/exercise13 tests passed"
+
+test-ch04-ex14: debug
+	@$(RM_RF) build/debug/chapter04/exercise14.out
+
+	@./build/debug/chapter04/exercise14$(EXEEXT) | tr -d '\r' > build/debug/chapter04/exercise14.out
+	@grep -Fxq 'ints: 69 42' build/debug/chapter04/exercise14.out
+	@grep -Fxq 'doubles: 321.0 123.0' build/debug/chapter04/exercise14.out
+	@grep -Fxq 'pointers: world hello' build/debug/chapter04/exercise14.out
+	@grep -Fxq 'swap checks: ok' build/debug/chapter04/exercise14.out
+
+	@$(RM_RF) build/debug/chapter04/exercise14.out
+	@echo "chapter04/exercise14 tests passed"
