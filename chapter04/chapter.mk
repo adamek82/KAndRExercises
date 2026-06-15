@@ -9,12 +9,13 @@ CHAPTER04_TESTS := \
 	test-ch04-ex08 \
 	test-ch04-ex09 \
 	test-ch04-ex10 \
+	test-ch04-ex11 \
 	test-ch04-ex12
 
 TESTS += $(CHAPTER04_TESTS)
 PHONY_TARGETS += $(CHAPTER04_TESTS)
 
-CH04_LIBM_EXERCISES := 03 04 05 06 10
+CH04_LIBM_EXERCISES := 03 04 05 06 10 11
 
 CH04_LIBM_TARGETS := \
 	$(addsuffix $(EXEEXT),$(addprefix $(OUTDIR)/chapter04/exercise,$(CH04_LIBM_EXERCISES)))
@@ -172,6 +173,24 @@ test-ch04-ex10: debug
 
 	@$(RM_RF) build/debug/chapter04/exercise10.out build/debug/chapter04/exercise10.expected
 	@echo "chapter04/exercise10 tests passed"
+
+test-ch04-ex11: debug
+	@$(RM_RF) build/debug/chapter04/exercise11.out build/debug/chapter04/exercise11.expected
+
+	@printf '3 :A\nA 2 *\nv 4 +\n2 3 pow :B\nB 1 +\n5 d *\n3.14159265 2 / sin\n10 3 %%\n1 -1 +\n' | ./build/debug/chapter04/exercise11$(EXEEXT) | tr -d '\r' > build/debug/chapter04/exercise11.out
+	@printf '\t3\n' > build/debug/chapter04/exercise11.expected
+	@printf '\t6\n' >> build/debug/chapter04/exercise11.expected
+	@printf '\t10\n' >> build/debug/chapter04/exercise11.expected
+	@printf '\t8\n' >> build/debug/chapter04/exercise11.expected
+	@printf '\t9\n' >> build/debug/chapter04/exercise11.expected
+	@printf '\t25\n' >> build/debug/chapter04/exercise11.expected
+	@printf '\t1\n' >> build/debug/chapter04/exercise11.expected
+	@printf '\t1\n' >> build/debug/chapter04/exercise11.expected
+	@printf '\t0\n' >> build/debug/chapter04/exercise11.expected
+	@$(CMP) -s build/debug/chapter04/exercise11.out build/debug/chapter04/exercise11.expected
+
+	@$(RM_RF) build/debug/chapter04/exercise11.out build/debug/chapter04/exercise11.expected
+	@echo "chapter04/exercise11 tests passed"
 
 test-ch04-ex12: debug
 	@$(RM_RF) build/debug/chapter04/exercise12.out
