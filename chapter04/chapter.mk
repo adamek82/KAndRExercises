@@ -10,7 +10,8 @@ CHAPTER04_TESTS := \
 	test-ch04-ex09 \
 	test-ch04-ex10 \
 	test-ch04-ex11 \
-	test-ch04-ex12
+	test-ch04-ex12 \
+	test-ch04-ex13
 
 TESTS += $(CHAPTER04_TESTS)
 PHONY_TARGETS += $(CHAPTER04_TESTS)
@@ -205,3 +206,17 @@ test-ch04-ex12: debug
 
 	@$(RM_RF) build/debug/chapter04/exercise12.out
 	@echo "chapter04/exercise12 tests passed"
+
+test-ch04-ex13: debug
+	@$(RM_RF) build/debug/chapter04/exercise13.out
+
+	@./build/debug/chapter04/exercise13$(EXEEXT) | tr -d '\r' > build/debug/chapter04/exercise13.out
+	@grep -Fxq 'reverse("hello") = olleh' build/debug/chapter04/exercise13.out
+	@grep -Fxq 'reverse("abcd") = dcba' build/debug/chapter04/exercise13.out
+	@grep -Fxq 'reverse("") = ' build/debug/chapter04/exercise13.out
+	@grep -Fxq 'reverse("a") = a' build/debug/chapter04/exercise13.out
+	@grep -Fxq 'reverse("K&R") = R&K' build/debug/chapter04/exercise13.out
+	@grep -Fxq 'reverse checks: ok' build/debug/chapter04/exercise13.out
+
+	@$(RM_RF) build/debug/chapter04/exercise13.out
+	@echo "chapter04/exercise13 tests passed"
