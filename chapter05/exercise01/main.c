@@ -34,8 +34,7 @@ int main(void)
 {
     int n;
     int status;
-    int first;
-    int second;
+    int first, second;
 
     clear_pushback();
     ungets("123x");
