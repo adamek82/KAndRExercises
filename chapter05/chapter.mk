@@ -1,6 +1,7 @@
 CHAPTER05_TESTS := \
 	test-ch05-ex01 \
-	test-ch05-ex02
+	test-ch05-ex02 \
+	test-ch05-ex03
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -28,3 +29,15 @@ test-ch05-ex02: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise02.out
 	@echo "chapter05/exercise02 tests passed"
+
+test-ch05-ex03: debug
+	@$(RM_RF) build/debug/chapter05/exercise03.out
+
+	@./build/debug/chapter05/exercise03$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise03.out
+	@grep -Fxq 'strcat_pointer("hello", " world") = hello world' build/debug/chapter05/exercise03.out
+	@grep -Fxq 'strcat_pointer("", "empty destination") = empty destination' build/debug/chapter05/exercise03.out
+	@grep -Fxq 'strcat_pointer("K&R", "") = K&R' build/debug/chapter05/exercise03.out
+	@grep -Fxq 'strcat_pointer checks: ok' build/debug/chapter05/exercise03.out
+
+	@$(RM_RF) build/debug/chapter05/exercise03.out
+	@echo "chapter05/exercise03 tests passed"
