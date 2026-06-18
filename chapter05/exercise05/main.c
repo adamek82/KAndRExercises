@@ -4,6 +4,7 @@ char *kr_strncpy(char *s, char *t, int n);
 char *kr_strncat(char *s, char *t, int n);
 int kr_strncmp(char *s, char *t, int n);
 int string_equal(char *s, char *t);
+int buffer_equal(char *s, char *t, int n);
 int check_functions(void);
 
 /*
@@ -109,12 +110,28 @@ int string_equal(char *s, char *t)
     return *s == *t;
 }
 
+int buffer_equal(char *s, char *t, int n)
+{
+    while (n-- > 0) {
+        if (*s++ != *t++) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 int check_functions(void)
 {
     char a[20] = "hello";
     char b[20] = "abc";
     char c[20] = "unchanged";
     char d[20] = "hello";
+    char e[20] = "hello";
+    char f[20] = "hello";
+    char g[20] = "hello";
+    char h[20] = "xxxxx";
+    char i[20] = "xxxxx";
 
     kr_strncat(a, " world", 3);
     if (!string_equal(a, "hello wo")) {
@@ -122,18 +139,42 @@ int check_functions(void)
     }
 
     kr_strncpy(b, "xy", 5);
-    if (b[0] != 'x' || b[1] != 'y' || b[2] != '\0'
-        || b[3] != '\0' || b[4] != '\0') {
+    if (!buffer_equal(b, "xy\0\0\0", 5)) {
         return 0;
     }
 
     kr_strncpy(c, "abcdef", 3);
-    if (c[0] != 'a' || c[1] != 'b' || c[2] != 'c') {
+    if (!buffer_equal(c, "abc", 3)) {
         return 0;
     }
 
     kr_strncat(d, " world", 0);
     if (!string_equal(d, "hello")) {
+        return 0;
+    }
+
+    kr_strncat(e, "", 5);
+    if (!string_equal(e, "hello")) {
+        return 0;
+    }
+
+    kr_strncat(f, "!", 5);
+    if (!string_equal(f, "hello!")) {
+        return 0;
+    }
+
+    kr_strncat(g, "abc", 3);
+    if (!string_equal(g, "helloabc")) {
+        return 0;
+    }
+
+    kr_strncpy(h, "", 3);
+    if (!buffer_equal(h, "\0\0\0", 3)) {
+        return 0;
+    }
+
+    kr_strncpy(i, "abc", 0);
+    if (!string_equal(i, "xxxxx")) {
         return 0;
     }
 
@@ -157,7 +198,23 @@ int check_functions(void)
         return 0;
     }
 
+    if (kr_strncmp("ab", "abc", 3) >= 0) {
+        return 0;
+    }
+
     if (kr_strncmp("abc", "abd", 0) != 0) {
+        return 0;
+    }
+
+    if (kr_strncmp("", "", 5) != 0) {
+        return 0;
+    }
+
+    if (kr_strncmp("", "a", 5) >= 0) {
+        return 0;
+    }
+
+    if (kr_strncmp("a", "", 5) <= 0) {
         return 0;
     }
 
