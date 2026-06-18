@@ -2,7 +2,8 @@ CHAPTER05_TESTS := \
 	test-ch05-ex01 \
 	test-ch05-ex02 \
 	test-ch05-ex03 \
-	test-ch05-ex04
+	test-ch05-ex04 \
+	test-ch05-ex05
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -55,3 +56,16 @@ test-ch05-ex04: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise04.out
 	@echo "chapter05/exercise04 tests passed"
+
+test-ch05-ex05: debug
+	@$(RM_RF) build/debug/chapter05/exercise05.out
+
+	@./build/debug/chapter05/exercise05$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise05.out
+	@grep -Fxq 'kr_strncat("hello", " world", 3) = hello wo' build/debug/chapter05/exercise05.out
+	@grep -Fxq 'kr_strncpy("abc", "xy", 5) = xy' build/debug/chapter05/exercise05.out
+	@grep -Fxq 'kr_strncpy("", "abcdef", 3) prefix = abc' build/debug/chapter05/exercise05.out
+	@grep -Fxq 'kr_strncmp("abc", "abd", 2) = 0' build/debug/chapter05/exercise05.out
+	@grep -Fxq 'string function checks: ok' build/debug/chapter05/exercise05.out
+
+	@$(RM_RF) build/debug/chapter05/exercise05.out
+	@echo "chapter05/exercise05 tests passed"
