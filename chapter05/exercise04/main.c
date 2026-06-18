@@ -52,28 +52,23 @@ int strend(char *s, char *t)
 
 int string_equal(char *s, char *t)
 {
-    while (*s == *t) {
-        if (*s == '\0') {
-            return 1;
-        }
-
+    while (*s && *s == *t) {
         ++s;
         ++t;
     }
 
-    return 0;
+    return *s == *t;
 }
 
 int string_length(char *s)
 {
-    int len = 0;
+    char *p = s;
 
-    while (*s != '\0') {
-        ++len;
-        ++s;
+    while (*p) {
+        ++p;
     }
 
-    return len;
+    return p - s;
 }
 
 int check_strend(void)
