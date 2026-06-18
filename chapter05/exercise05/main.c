@@ -51,11 +51,12 @@ char *kr_strncpy(char *s, char *t, int n)
 {
     char *start = s;
 
-    while (n-- > 0 && (*s++ = *t++)) {
-        ;
+    while (n > 0 && *t) {
+        *s++ = *t++;
+        --n;
     }
 
-    while (n-- >= 0) {
+    while (n-- > 0) {
         *s++ = '\0';
     }
 
@@ -70,29 +71,32 @@ char *kr_strncat(char *s, char *t, int n)
         ++s;
     }
 
-    while (n-- > 0 && (*s++ = *t++)) {
-        ;
+    while (n > 0 && *t) {
+        *s++ = *t++;
+        --n;
     }
 
-    if (n < 0) {
-        *s = '\0';
-    }
+    *s = '\0';
 
     return start;
 }
 
 int kr_strncmp(char *s, char *t, int n)
 {
-    if (n <= 0) {
-        return 0;
-    }
+    while (n-- > 0) {
+        if (*s != *t) {
+            return (unsigned char) *s - (unsigned char) *t;
+        }
 
-    while (--n > 0 && *s && *s == *t) {
+        if (!*s) {
+            return 0;
+        }
+
         ++s;
         ++t;
     }
 
-    return (unsigned char) *s - (unsigned char) *t;
+    return 0;
 }
 
 int string_equal(char *s, char *t)
