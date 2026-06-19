@@ -3,7 +3,8 @@ CHAPTER05_TESTS := \
 	test-ch05-ex02 \
 	test-ch05-ex03 \
 	test-ch05-ex04 \
-	test-ch05-ex05
+	test-ch05-ex05 \
+	test-ch05-ex06
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -69,3 +70,17 @@ test-ch05-ex05: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise05.out
 	@echo "chapter05/exercise05 tests passed"
+
+test-ch05-ex06: debug
+	@$(RM_RF) build/debug/chapter05/exercise06.out
+
+	@printf 'hello line\n' | ./build/debug/chapter05/exercise06$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise06.out
+	@grep -Fxq 'get_line = hello line' build/debug/chapter05/exercise06.out
+	@grep -Fxq 'kr_atoi("  -123x") = -123' build/debug/chapter05/exercise06.out
+	@grep -Fxq 'kr_itoa(INT_MIN) = -2147483648' build/debug/chapter05/exercise06.out
+	@grep -Fxq 'reverse("hello") = olleh' build/debug/chapter05/exercise06.out
+	@grep -Fxq 'strindex("hello world", "world") = 6' build/debug/chapter05/exercise06.out
+	@grep -Fxq 'pointer function checks: ok' build/debug/chapter05/exercise06.out
+
+	@$(RM_RF) build/debug/chapter05/exercise06.out
+	@echo "chapter05/exercise06 tests passed"
