@@ -4,10 +4,21 @@ CHAPTER05_TESTS := \
 	test-ch05-ex03 \
 	test-ch05-ex04 \
 	test-ch05-ex05 \
-	test-ch05-ex06
+	test-ch05-ex06 \
+	test-ch05-ex07
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
+
+ifeq ($(BUILD),release)
+CH05_EX07_BENCH_FLAGS := -DMAXLINES=8000 -DMAXSTOR=800000 -DBENCH_LINES=5000 -DBENCH_REPEAT=2000
+else
+CH05_EX07_BENCH_FLAGS := -DMAXLINES=2000 -DMAXSTOR=200000 -DBENCH_LINES=1000 -DBENCH_REPEAT=50
+endif
+
+$(OUTDIR)/chapter05/exercise07$(EXEEXT): chapter05/exercise07/main.c
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(CFLAGS) $(CH05_EX07_BENCH_FLAGS) $< -o $@
 
 test-ch05-ex01: debug
 	@$(RM_RF) build/debug/chapter05/exercise01.out
@@ -84,3 +95,17 @@ test-ch05-ex06: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise06.out
 	@echo "chapter05/exercise06 tests passed"
+
+test-ch05-ex07: debug
+	@$(RM_RF) build/debug/chapter05/exercise07.out
+
+	@./build/debug/chapter05/exercise07$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise07.out
+	@grep -Fxq 'readlines_store sample count: 3' build/debug/chapter05/exercise07.out
+	@grep -Fxq 'first sample line: line 00000: quick brown fox jumps 000' build/debug/chapter05/exercise07.out
+	@grep -Fxq 'last sample line: line 00002: quick brown fox jumps 002' build/debug/chapter05/exercise07.out
+	@grep -Fxq 'readlines checks: ok' build/debug/chapter05/exercise07.out
+	@grep -Fxq 'benchmark lines: 1000' build/debug/chapter05/exercise07.out
+	@grep -Fxq 'benchmark repeats: 50' build/debug/chapter05/exercise07.out
+
+	@$(RM_RF) build/debug/chapter05/exercise07.out
+	@echo "chapter05/exercise07 tests passed"
