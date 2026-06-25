@@ -53,7 +53,7 @@ int main(void)
 
 int get_line(char *s, int lim)
 {
-    int c;
+    int c = EOF;
     char *start = s;
 
     while (--lim > 0 && (c = getchar()) != EOF && c != '\n') {
