@@ -6,7 +6,8 @@ CHAPTER05_TESTS := \
 	test-ch05-ex05 \
 	test-ch05-ex06 \
 	test-ch05-ex07 \
-	test-ch05-ex08
+	test-ch05-ex08 \
+	test-ch05-ex09
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -122,3 +123,15 @@ test-ch05-ex08: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise08.out
 	@echo "chapter05/exercise08 tests passed"
+
+test-ch05-ex09: debug
+	@$(RM_RF) build/debug/chapter05/exercise09.out
+
+	@./build/debug/chapter05/exercise09$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise09.out
+	@grep -Fq 'day_of_year(1988, 2, 29) = 60: PASS' build/debug/chapter05/exercise09.out
+	@grep -Fq 'day_of_year(1989, 2, 29) = -1: PASS' build/debug/chapter05/exercise09.out
+	@grep -Fq 'month_day(1988, 60) = 2/29: PASS' build/debug/chapter05/exercise09.out
+	@grep -Fq 'month_day(1989, 366) = -1/-1: PASS' build/debug/chapter05/exercise09.out
+
+	@$(RM_RF) build/debug/chapter05/exercise09.out
+	@echo "chapter05/exercise09 tests passed"
