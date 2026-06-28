@@ -8,7 +8,9 @@ CHAPTER05_TESTS := \
 	test-ch05-ex07 \
 	test-ch05-ex08 \
 	test-ch05-ex09 \
-	test-ch05-ex10
+	test-ch05-ex10 \
+	test-ch05-ex11-entab \
+	test-ch05-ex11-detab
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -151,3 +153,31 @@ test-ch05-ex10: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise10.out
 	@echo "chapter05/exercise10 tests passed"
+
+test-ch05-ex11-entab: debug
+	@$(RM_RF) build/debug/chapter05/exercise11/entab.out build/debug/chapter05/exercise11/entab.expected
+
+	@printf 'ab  cd\n' | ./build/debug/chapter05/exercise11/entab$(EXEEXT) 4 8 | tr -d '\r' > build/debug/chapter05/exercise11/entab.out
+	@printf 'ab\tcd\n' > build/debug/chapter05/exercise11/entab.expected
+	@$(CMP) -s build/debug/chapter05/exercise11/entab.out build/debug/chapter05/exercise11/entab.expected
+
+	@printf 'ab      cd\n' | ./build/debug/chapter05/exercise11/entab$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise11/entab.out
+	@printf 'ab\tcd\n' > build/debug/chapter05/exercise11/entab.expected
+	@$(CMP) -s build/debug/chapter05/exercise11/entab.out build/debug/chapter05/exercise11/entab.expected
+
+	@$(RM_RF) build/debug/chapter05/exercise11/entab.out build/debug/chapter05/exercise11/entab.expected
+	@echo "chapter05/exercise11/entab tests passed"
+
+test-ch05-ex11-detab: debug
+	@$(RM_RF) build/debug/chapter05/exercise11/detab.out build/debug/chapter05/exercise11/detab.expected
+
+	@printf 'ab\tcd\n' | ./build/debug/chapter05/exercise11/detab$(EXEEXT) 4 8 | tr -d '\r' > build/debug/chapter05/exercise11/detab.out
+	@printf 'ab  cd\n' > build/debug/chapter05/exercise11/detab.expected
+	@$(CMP) -s build/debug/chapter05/exercise11/detab.out build/debug/chapter05/exercise11/detab.expected
+
+	@printf 'ab\tcd\n' | ./build/debug/chapter05/exercise11/detab$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise11/detab.out
+	@printf 'ab      cd\n' > build/debug/chapter05/exercise11/detab.expected
+	@$(CMP) -s build/debug/chapter05/exercise11/detab.out build/debug/chapter05/exercise11/detab.expected
+
+	@$(RM_RF) build/debug/chapter05/exercise11/detab.out build/debug/chapter05/exercise11/detab.expected
+	@echo "chapter05/exercise11/detab tests passed"
