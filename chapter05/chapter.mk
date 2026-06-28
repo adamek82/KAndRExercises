@@ -7,7 +7,8 @@ CHAPTER05_TESTS := \
 	test-ch05-ex06 \
 	test-ch05-ex07 \
 	test-ch05-ex08 \
-	test-ch05-ex09
+	test-ch05-ex09 \
+	test-ch05-ex10
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -135,3 +136,21 @@ test-ch05-ex09: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise09.out
 	@echo "chapter05/exercise09 tests passed"
+
+test-ch05-ex10: debug
+	@$(RM_RF) build/debug/chapter05/exercise10.out
+
+	@./build/debug/chapter05/exercise10$(EXEEXT) 2 3 4 + '*' | tr -d '\r' > build/debug/chapter05/exercise10.out
+	@grep -Fxq '14' build/debug/chapter05/exercise10.out
+
+	@./build/debug/chapter05/exercise10$(EXEEXT) 5 2 - | tr -d '\r' > build/debug/chapter05/exercise10.out
+	@grep -Fxq '3' build/debug/chapter05/exercise10.out
+
+	@./build/debug/chapter05/exercise10$(EXEEXT) -2 3 '*' | tr -d '\r' > build/debug/chapter05/exercise10.out
+	@grep -Fxq -- '-6' build/debug/chapter05/exercise10.out
+
+	@./build/debug/chapter05/exercise10$(EXEEXT) 7 2 / | tr -d '\r' > build/debug/chapter05/exercise10.out
+	@grep -Fxq '3.5' build/debug/chapter05/exercise10.out
+
+	@$(RM_RF) build/debug/chapter05/exercise10.out
+	@echo "chapter05/exercise10 tests passed"
