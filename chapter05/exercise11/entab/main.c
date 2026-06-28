@@ -10,6 +10,12 @@ int next_tab_stop(int column, int tabstops[], int ntabs);
 int next_default_tab_stop(int column);
 void entab(int tabstops[], int ntabs);
 
+/*
+ * Exercise 5-11.
+ *
+ * Modify entab so that tab stops may be supplied as command-line arguments.
+ * If no tab stops are supplied, use the default tab width.
+ */
 int main(int argc, char *argv[])
 {
     int tabstops[MAX_TABSTOPS];
