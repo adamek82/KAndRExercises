@@ -142,13 +142,10 @@ test-ch05-ex10: debug
 
 	@./build/debug/chapter05/exercise10$(EXEEXT) 2 3 4 + '*' | tr -d '\r' > build/debug/chapter05/exercise10.out
 	@grep -Fxq '14' build/debug/chapter05/exercise10.out
-
 	@./build/debug/chapter05/exercise10$(EXEEXT) 5 2 - | tr -d '\r' > build/debug/chapter05/exercise10.out
 	@grep -Fxq '3' build/debug/chapter05/exercise10.out
-
 	@./build/debug/chapter05/exercise10$(EXEEXT) -2 3 '*' | tr -d '\r' > build/debug/chapter05/exercise10.out
 	@grep -Fxq -- '-6' build/debug/chapter05/exercise10.out
-
 	@./build/debug/chapter05/exercise10$(EXEEXT) 7 2 / | tr -d '\r' > build/debug/chapter05/exercise10.out
 	@grep -Fxq '3.5' build/debug/chapter05/exercise10.out
 
