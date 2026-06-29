@@ -148,7 +148,7 @@ test-ch05-ex10: debug
 	@grep -Fxq '3' build/debug/chapter05/exercise10.out
 	@./build/debug/chapter05/exercise10$(EXEEXT) -2 3 '*' | tr -d '\r' > build/debug/chapter05/exercise10.out
 	@grep -Fxq -- '-6' build/debug/chapter05/exercise10.out
-	@./build/debug/chapter05/exercise10$(EXEEXT) 7 2 / | tr -d '\r' > build/debug/chapter05/exercise10.out
+	@MSYS2_ARG_CONV_EXCL=/ ./build/debug/chapter05/exercise10$(EXEEXT) 7 2 / | tr -d '\r' > build/debug/chapter05/exercise10.out
 	@grep -Fxq '3.5' build/debug/chapter05/exercise10.out
 
 	@$(RM_RF) build/debug/chapter05/exercise10.out
