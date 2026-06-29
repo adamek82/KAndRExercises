@@ -10,7 +10,9 @@ CHAPTER05_TESTS := \
 	test-ch05-ex09 \
 	test-ch05-ex10 \
 	test-ch05-ex11-entab \
-	test-ch05-ex11-detab
+	test-ch05-ex11-detab \
+	test-ch05-ex12-entab \
+	test-ch05-ex12-detab
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -181,3 +183,39 @@ test-ch05-ex11-detab: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise11/detab.out build/debug/chapter05/exercise11/detab.expected
 	@echo "chapter05/exercise11/detab tests passed"
+
+test-ch05-ex12-entab: debug
+	@$(RM_RF) build/debug/chapter05/exercise12/entab.out build/debug/chapter05/exercise12/entab.expected
+
+	@printf 'ab  cd\n' | ./build/debug/chapter05/exercise12/entab$(EXEEXT) -4 +4 | tr -d '\r' > build/debug/chapter05/exercise12/entab.out
+	@printf 'ab\tcd\n' > build/debug/chapter05/exercise12/entab.expected
+	@$(CMP) -s build/debug/chapter05/exercise12/entab.out build/debug/chapter05/exercise12/entab.expected
+
+	@printf 'ab   cd\n' | ./build/debug/chapter05/exercise12/entab$(EXEEXT) -5 +3 | tr -d '\r' > build/debug/chapter05/exercise12/entab.out
+	@printf 'ab\tcd\n' > build/debug/chapter05/exercise12/entab.expected
+	@$(CMP) -s build/debug/chapter05/exercise12/entab.out build/debug/chapter05/exercise12/entab.expected
+
+	@printf 'ab  cd\n' | ./build/debug/chapter05/exercise12/entab$(EXEEXT) +4 | tr -d '\r' > build/debug/chapter05/exercise12/entab.out
+	@printf 'ab\tcd\n' > build/debug/chapter05/exercise12/entab.expected
+	@$(CMP) -s build/debug/chapter05/exercise12/entab.out build/debug/chapter05/exercise12/entab.expected
+
+	@$(RM_RF) build/debug/chapter05/exercise12/entab.out build/debug/chapter05/exercise12/entab.expected
+	@echo "chapter05/exercise12/entab tests passed"
+
+test-ch05-ex12-detab: debug
+	@$(RM_RF) build/debug/chapter05/exercise12/detab.out build/debug/chapter05/exercise12/detab.expected
+
+	@printf 'ab\tcd\n' | ./build/debug/chapter05/exercise12/detab$(EXEEXT) -4 +4 | tr -d '\r' > build/debug/chapter05/exercise12/detab.out
+	@printf 'ab  cd\n' > build/debug/chapter05/exercise12/detab.expected
+	@$(CMP) -s build/debug/chapter05/exercise12/detab.out build/debug/chapter05/exercise12/detab.expected
+
+	@printf 'ab\tcd\n' | ./build/debug/chapter05/exercise12/detab$(EXEEXT) -5 +3 | tr -d '\r' > build/debug/chapter05/exercise12/detab.out
+	@printf 'ab   cd\n' > build/debug/chapter05/exercise12/detab.expected
+	@$(CMP) -s build/debug/chapter05/exercise12/detab.out build/debug/chapter05/exercise12/detab.expected
+
+	@printf 'ab\tcd\n' | ./build/debug/chapter05/exercise12/detab$(EXEEXT) +4 | tr -d '\r' > build/debug/chapter05/exercise12/detab.out
+	@printf 'ab  cd\n' > build/debug/chapter05/exercise12/detab.expected
+	@$(CMP) -s build/debug/chapter05/exercise12/detab.out build/debug/chapter05/exercise12/detab.expected
+
+	@$(RM_RF) build/debug/chapter05/exercise12/detab.out build/debug/chapter05/exercise12/detab.expected
+	@echo "chapter05/exercise12/detab tests passed"
