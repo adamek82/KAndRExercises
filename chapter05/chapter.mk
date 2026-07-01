@@ -12,7 +12,8 @@ CHAPTER05_TESTS := \
 	test-ch05-ex11-entab \
 	test-ch05-ex11-detab \
 	test-ch05-ex12-entab \
-	test-ch05-ex12-detab
+	test-ch05-ex12-detab \
+	test-ch05-ex13
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -219,3 +220,21 @@ test-ch05-ex12-detab: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise12/detab.out build/debug/chapter05/exercise12/detab.expected
 	@echo "chapter05/exercise12/detab tests passed"
+
+test-ch05-ex13: debug
+	@$(RM_RF) build/debug/chapter05/exercise13.out build/debug/chapter05/exercise13.expected
+
+	@printf '%s\n' one two three four five | ./build/debug/chapter05/exercise13$(EXEEXT) -3 | tr -d '\r' > build/debug/chapter05/exercise13.out
+	@printf '%s\n' three four five > build/debug/chapter05/exercise13.expected
+	@$(CMP) -s build/debug/chapter05/exercise13.out build/debug/chapter05/exercise13.expected
+
+	@printf '%s\n' one two three | ./build/debug/chapter05/exercise13$(EXEEXT) -10 | tr -d '\r' > build/debug/chapter05/exercise13.out
+	@printf '%s\n' one two three > build/debug/chapter05/exercise13.expected
+	@$(CMP) -s build/debug/chapter05/exercise13.out build/debug/chapter05/exercise13.expected
+
+	@printf '%s\n' one two three | ./build/debug/chapter05/exercise13$(EXEEXT) -0 | tr -d '\r' > build/debug/chapter05/exercise13.out
+	@printf '%s' '' > build/debug/chapter05/exercise13.expected
+	@$(CMP) -s build/debug/chapter05/exercise13.out build/debug/chapter05/exercise13.expected
+
+	@$(RM_RF) build/debug/chapter05/exercise13.out build/debug/chapter05/exercise13.expected
+	@echo "chapter05/exercise13 tests passed"
