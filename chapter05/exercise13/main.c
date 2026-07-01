@@ -33,11 +33,6 @@ int main(int argc, char *argv[])
     store = 0;
 
     while ((len = get_line(line, MAXLEN)) > 0) {
-        if (len >= MAXSTOR) {
-            printf("tail: line too long\n");
-            return 1;
-        }
-
         if (store + len + 1 > MAXSTOR) {
             store = 0;
         }
