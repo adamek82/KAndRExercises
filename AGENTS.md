@@ -133,6 +133,10 @@ Use `make list` to check discovery and `make -B <output-path>` for a fresh build
   `tr -d '\r'`, change meaningful data, or normalize away defects. Byte-sensitive
   tests need explicit expected bytes and `$(CMP) -s`; account for platform text-mode
   translation only when the output contract permits it. Not all text must be byte-identical.
+- Account for input text-mode translation, not just output differences.
+  On Windows, CRLF may become LF and Ctrl-Z may be interpreted as EOF.
+  Use ordinary text I/O unless the exercise explicitly requires raw bytes;
+  do not assume byte-sensitive input behaves identically across platforms.
 - Check complete expected output when practical; selected matching fragments alone
   may miss failures. Verify exit status independently of output comparison.
   Feed prepared input by redirection, capture output and status, then normalize or
