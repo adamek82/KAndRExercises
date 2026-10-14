@@ -115,11 +115,7 @@ void print_tail(char *lineptr[], int nlines, int next_index, int requested)
         return;
     }
 
-    first = next_index - requested;
-
-    if (first < 0) {
-        first += MAXLINES;
-    }
+    first = (next_index - requested + MAXLINES) % MAXLINES;
 
     for (i = 0; i < requested; ++i) {
         printf("%s", lineptr[(first + i) % MAXLINES]);
