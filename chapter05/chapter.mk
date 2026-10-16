@@ -13,7 +13,8 @@ CHAPTER05_TESTS := \
 	test-ch05-ex11-detab \
 	test-ch05-ex12-entab \
 	test-ch05-ex12-detab \
-	test-ch05-ex13
+	test-ch05-ex13 \
+	test-ch05-ex14
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -238,3 +239,34 @@ test-ch05-ex13: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise13.out build/debug/chapter05/exercise13.expected
 	@echo "chapter05/exercise13 tests passed"
+
+
+test-ch05-ex14: debug
+	@$(RM_RF) build/debug/chapter05/exercise14.out build/debug/chapter05/exercise14.expected
+
+	@printf '%s\n' banana apple cherry | ./build/debug/chapter05/exercise14$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise14.out
+	@printf '%s\n' apple banana cherry > build/debug/chapter05/exercise14.expected
+	@$(CMP) -s build/debug/chapter05/exercise14.out build/debug/chapter05/exercise14.expected
+
+	@printf '%s\n' banana apple cherry | ./build/debug/chapter05/exercise14$(EXEEXT) -r | tr -d '\r' > build/debug/chapter05/exercise14.out
+	@printf '%s\n' cherry banana apple > build/debug/chapter05/exercise14.expected
+	@$(CMP) -s build/debug/chapter05/exercise14.out build/debug/chapter05/exercise14.expected
+
+	@printf '%s\n' 2 10 -5 3 | ./build/debug/chapter05/exercise14$(EXEEXT) -n | tr -d '\r' > build/debug/chapter05/exercise14.out
+	@printf '%s\n' -5 2 3 10 > build/debug/chapter05/exercise14.expected
+	@$(CMP) -s build/debug/chapter05/exercise14.out build/debug/chapter05/exercise14.expected
+
+	@printf '%s\n' 2 10 -5 3 | ./build/debug/chapter05/exercise14$(EXEEXT) -n -r | tr -d '\r' > build/debug/chapter05/exercise14.out
+	@printf '%s\n' 10 3 2 -5 > build/debug/chapter05/exercise14.expected
+	@$(CMP) -s build/debug/chapter05/exercise14.out build/debug/chapter05/exercise14.expected
+
+	@printf '%s\n' 2 10 -5 3 | ./build/debug/chapter05/exercise14$(EXEEXT) -rn | tr -d '\r' > build/debug/chapter05/exercise14.out
+	@printf '%s\n' 10 3 2 -5 > build/debug/chapter05/exercise14.expected
+	@$(CMP) -s build/debug/chapter05/exercise14.out build/debug/chapter05/exercise14.expected
+
+	@printf 'b\na' | ./build/debug/chapter05/exercise14$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise14.out
+	@printf 'a\nb\n' > build/debug/chapter05/exercise14.expected
+	@$(CMP) -s build/debug/chapter05/exercise14.out build/debug/chapter05/exercise14.expected
+
+	@$(RM_RF) build/debug/chapter05/exercise14.out build/debug/chapter05/exercise14.expected
+	@echo "chapter05/exercise14 tests passed"
