@@ -14,7 +14,8 @@ CHAPTER05_TESTS := \
 	test-ch05-ex12-entab \
 	test-ch05-ex12-detab \
 	test-ch05-ex13 \
-	test-ch05-ex14
+	test-ch05-ex14 \
+	test-ch05-ex15
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -240,7 +241,6 @@ test-ch05-ex13: debug
 	@$(RM_RF) build/debug/chapter05/exercise13.out build/debug/chapter05/exercise13.expected
 	@echo "chapter05/exercise13 tests passed"
 
-
 test-ch05-ex14: debug
 	@$(RM_RF) build/debug/chapter05/exercise14.out build/debug/chapter05/exercise14.expected
 
@@ -270,3 +270,25 @@ test-ch05-ex14: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise14.out build/debug/chapter05/exercise14.expected
 	@echo "chapter05/exercise14 tests passed"
+
+test-ch05-ex15: debug
+	@$(RM_RF) build/debug/chapter05/exercise15.out build/debug/chapter05/exercise15.expected
+
+	@printf '%s\n' Zebra apple Banana cherry | ./build/debug/chapter05/exercise15$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise15.out
+	@printf '%s\n' Banana Zebra apple cherry > build/debug/chapter05/exercise15.expected
+	@$(CMP) -s build/debug/chapter05/exercise15.out build/debug/chapter05/exercise15.expected
+
+	@printf '%s\n' Zebra apple Banana cherry | ./build/debug/chapter05/exercise15$(EXEEXT) -f | tr -d '\r' > build/debug/chapter05/exercise15.out
+	@printf '%s\n' apple Banana cherry Zebra > build/debug/chapter05/exercise15.expected
+	@$(CMP) -s build/debug/chapter05/exercise15.out build/debug/chapter05/exercise15.expected
+
+	@printf '%s\n' Zebra apple Banana cherry | ./build/debug/chapter05/exercise15$(EXEEXT) -rf | tr -d '\r' > build/debug/chapter05/exercise15.out
+	@printf '%s\n' Zebra cherry Banana apple > build/debug/chapter05/exercise15.expected
+	@$(CMP) -s build/debug/chapter05/exercise15.out build/debug/chapter05/exercise15.expected
+
+	@printf '%s\n' 2 10 -5 3 | ./build/debug/chapter05/exercise15$(EXEEXT) -nrf | tr -d '\r' > build/debug/chapter05/exercise15.out
+	@printf '%s\n' 10 3 2 -5 > build/debug/chapter05/exercise15.expected
+	@$(CMP) -s build/debug/chapter05/exercise15.out build/debug/chapter05/exercise15.expected
+
+	@$(RM_RF) build/debug/chapter05/exercise15.out build/debug/chapter05/exercise15.expected
+	@echo "chapter05/exercise15 tests passed"
