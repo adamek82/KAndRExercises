@@ -19,6 +19,12 @@ void swap(char *v[], int i, int j);
 int numcmp(const char *s1, const char *s2);
 int parse_options(int argc, char *argv[], int *options);
 
+/*
+ * Exercise 5-14.
+ *
+ * Modify the sort program to handle a -r flag, which indicates sorting in
+ * reverse (decreasing) order. Be sure that -r works with -n.
+ */
 int main(int argc, char *argv[])
 {
     static char storage[MAXSTOR];
