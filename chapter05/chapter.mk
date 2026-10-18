@@ -15,7 +15,8 @@ CHAPTER05_TESTS := \
 	test-ch05-ex12-detab \
 	test-ch05-ex13 \
 	test-ch05-ex14 \
-	test-ch05-ex15
+	test-ch05-ex15 \
+	test-ch05-ex16
 
 TESTS += $(CHAPTER05_TESTS)
 PHONY_TARGETS += $(CHAPTER05_TESTS)
@@ -292,3 +293,41 @@ test-ch05-ex15: debug
 
 	@$(RM_RF) build/debug/chapter05/exercise15.out build/debug/chapter05/exercise15.expected
 	@echo "chapter05/exercise15 tests passed"
+
+test-ch05-ex16: debug
+	@$(RM_RF) build/debug/chapter05/exercise16.out build/debug/chapter05/exercise16.expected
+
+	@printf '%s\n' a-b a1 'a b' 'a?z' | ./build/debug/chapter05/exercise16$(EXEEXT) | tr -d '\r' > build/debug/chapter05/exercise16.out
+	@printf '%s\n' 'a b' a-b a1 'a?z' > build/debug/chapter05/exercise16.expected
+	@$(CMP) -s build/debug/chapter05/exercise16.out build/debug/chapter05/exercise16.expected
+
+	@printf '%s\n' a-b a1 'a b' 'a?z' | ./build/debug/chapter05/exercise16$(EXEEXT) -d | tr -d '\r' > build/debug/chapter05/exercise16.out
+	@printf '%s\n' 'a b' a1 a-b 'a?z' > build/debug/chapter05/exercise16.expected
+	@$(CMP) -s build/debug/chapter05/exercise16.out build/debug/chapter05/exercise16.expected
+
+	@printf '%s\n' Zebra apple Banana cherry | ./build/debug/chapter05/exercise16$(EXEEXT) -f | tr -d '\r' > build/debug/chapter05/exercise16.out
+	@printf '%s\n' apple Banana cherry Zebra > build/debug/chapter05/exercise16.expected
+	@$(CMP) -s build/debug/chapter05/exercise16.out build/debug/chapter05/exercise16.expected
+
+	@printf '%s\n' B-a a_9 'A 2' 'a#1' | ./build/debug/chapter05/exercise16$(EXEEXT) -df | tr -d '\r' > build/debug/chapter05/exercise16.out
+	@printf '%s\n' 'A 2' 'a#1' a_9 B-a > build/debug/chapter05/exercise16.expected
+	@$(CMP) -s build/debug/chapter05/exercise16.out build/debug/chapter05/exercise16.expected
+
+	@printf '%s\n' B-a a_9 'A 2' 'a#1' | ./build/debug/chapter05/exercise16$(EXEEXT) -r -d -f | tr -d '\r' > build/debug/chapter05/exercise16.out
+	@printf '%s\n' B-a a_9 'a#1' 'A 2' > build/debug/chapter05/exercise16.expected
+	@$(CMP) -s build/debug/chapter05/exercise16.out build/debug/chapter05/exercise16.expected
+
+	@printf '%s\n' 2 10 -5 3 | ./build/debug/chapter05/exercise16$(EXEEXT) -nrf -d | tr -d '\r' > build/debug/chapter05/exercise16.out
+	@printf '%s\n' 10 3 2 -5 > build/debug/chapter05/exercise16.expected
+	@$(CMP) -s build/debug/chapter05/exercise16.out build/debug/chapter05/exercise16.expected
+
+	@printf 'a\t1\na 2\n' | ./build/debug/chapter05/exercise16$(EXEEXT) -d | tr -d '\r' > build/debug/chapter05/exercise16.out
+	@printf 'a\t1\na 2\n' > build/debug/chapter05/exercise16.expected
+	@$(CMP) -s build/debug/chapter05/exercise16.out build/debug/chapter05/exercise16.expected
+
+	@printf 'a\nc' | ./build/debug/chapter05/exercise16$(EXEEXT) -df | tr -d '\r' > build/debug/chapter05/exercise16.out
+	@printf 'a\nc\n' > build/debug/chapter05/exercise16.expected
+	@$(CMP) -s build/debug/chapter05/exercise16.out build/debug/chapter05/exercise16.expected
+
+	@$(RM_RF) build/debug/chapter05/exercise16.out build/debug/chapter05/exercise16.expected
+	@echo "chapter05/exercise16 tests passed"
