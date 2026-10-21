@@ -11,9 +11,7 @@
 struct TabSettings {
     int mode;
     int tabstops[MAX_TABSTOPS];
-    int ntabs;
-    int start;
-    int increment;
+    int ntabs, start, increment;
 };
 
 int parse_tab_settings(int argc, char *argv[], struct TabSettings *settings);
@@ -46,9 +44,7 @@ int main(int argc, char *argv[])
 
 void entab(struct TabSettings *settings)
 {
-    int c;
-    int column = 0;
-    int blanks = 0;
+    int c, column = 0, blanks = 0;
 
     while ((c = getchar()) != EOF) {
         if (c == ' ') {
@@ -85,8 +81,7 @@ void entab(struct TabSettings *settings)
 
 int parse_tab_settings(int argc, char *argv[], struct TabSettings *settings)
 {
-    int i;
-    int value;
+    int i, value;
 
     settings->mode = MODE_DEFAULT;
     settings->ntabs = 0;
@@ -200,8 +195,7 @@ int is_tab_stop(int column, struct TabSettings *settings)
 
 int next_tab_stop(int column, struct TabSettings *settings)
 {
-    int i;
-    int steps;
+    int i, steps;
 
     if (settings->mode == MODE_DEFAULT) {
         return next_default_tab_stop(column);

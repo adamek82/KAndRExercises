@@ -32,8 +32,7 @@ int main(int argc, char *argv[])
 {
     static char storage[MAXSTOR];
     char *lineptr[MAXLINES];
-    int nlines;
-    int options;
+    int nlines, options;
     int (*comp)(const char *, const char *);
 
     if (!parse_options(argc, argv, &options)) {
@@ -80,10 +79,8 @@ int parse_options(int argc, char *argv[], int *options)
 
 int get_line(char *s, int lim)
 {
-    int c;
-    int too_long = 0;
-    char *start = s;
-    char *end = s + lim - 1;
+    int c, too_long = 0;
+    char *start = s, *end = s + lim - 1;
 
     while ((c = getchar()) != EOF && c != '\n') {
         if (s < end) *s++ = (char) c;
@@ -102,9 +99,7 @@ int get_line(char *s, int lim)
 
 int readlines(char *lineptr[], int maxlines, char storage[], int maxstor)
 {
-    int len;
-    int nlines = 0;
-    int used = 0;
+    int len, nlines = 0, used = 0;
     char line[MAXLEN];
 
     while ((len = get_line(line, MAXLEN)) != 0) {
@@ -144,8 +139,7 @@ void writelines(char *lineptr[], int nlines, int reverse)
 void quick_sort(char *v[], int left, int right,
                 int (*comp)(const char *, const char *))
 {
-    int i;
-    int last;
+    int i, last;
 
     if (left >= right) return;
 
@@ -172,8 +166,7 @@ void swap(char *v[], int i, int j)
 
 int numcmp(const char *s1, const char *s2)
 {
-    double v1 = atof(s1);
-    double v2 = atof(s2);
+    double v1 = atof(s1), v2 = atof(s2);
 
     if (v1 < v2) return -1;
     if (v1 > v2) return 1;
@@ -182,8 +175,7 @@ int numcmp(const char *s1, const char *s2)
 
 int foldcmp(const char *s1, const char *s2)
 {
-    int c1;
-    int c2;
+    int c1, c2;
 
     for (;;) {
         c1 = tolower((unsigned char) *s1++);

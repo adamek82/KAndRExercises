@@ -33,8 +33,7 @@ int check_rejected_case(char input[], int expected_first, int expected_second);
 int main(void)
 {
     float x;
-    int status, next;
-    int first, second;
+    int status, next, first, second;
 
     clear_pushback();
     ungets("123.45x");
@@ -70,8 +69,7 @@ int main(void)
 
 int getfloat(float *pn)
 {
-    int c, sign, sign_char;
-    int saw_digit = 0;
+    int c, sign, sign_char, saw_digit = 0;
     float power = 1.0f;
 
     while (is_space(c = getch())) {
@@ -240,8 +238,7 @@ int check_getfloat(void)
 int check_number_case(char input[], float expected_value, int expected_next)
 {
     float value = 0.0f;
-    int status;
-    int next;
+    int status, next;
 
     clear_pushback();
     ungets(input);
@@ -256,9 +253,7 @@ int check_number_case(char input[], float expected_value, int expected_next)
 int check_rejected_case(char input[], int expected_first, int expected_second)
 {
     float value = 12345.0f;
-    int status;
-    int first;
-    int second;
+    int status, first, second;
 
     clear_pushback();
     ungets(input);

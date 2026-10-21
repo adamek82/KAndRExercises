@@ -53,22 +53,19 @@ volatile int result_sink;
  * data without measuring terminal or file I/O.
  */
 
-char *lineptr_alloc[MAXLINES];
-char *lineptr_store[MAXLINES];
+char *lineptr_alloc[MAXLINES], *lineptr_store[MAXLINES];
 
 char allocbuf[MAXSTOR];
 char *allocp = allocbuf;
 
 char linestor[MAXSTOR];
 
-int source_index;
-int source_lines;
+int source_index, source_lines;
 
 int main(void)
 {
     int nlines;
-    clock_t alloc_time;
-    clock_t store_time;
+    clock_t alloc_time, store_time;
 
     reset_source(3);
     nlines = readlines_store(lineptr_store, linestor, MAXLINES, MAXSTOR);
@@ -148,8 +145,7 @@ int readlines_alloc(char *lineptr[], int maxlines)
 int readlines_store(char *lineptr[], char *linestor, int maxlines, int storesize)
 {
     int len, nlines;
-    char *p;
-    char *linestop;
+    char *p, *linestop;
     char line[MAXLEN];
 
     p = linestor;
@@ -237,8 +233,7 @@ clock_t benchmark_store(void)
 int check_readlines(void)
 {
     int nalloc, nstore;
-    char *alloc_lines[10];
-    char *store_lines[10];
+    char *alloc_lines[10], *store_lines[10];
     char small_store[20];
 
     alloc_reset();

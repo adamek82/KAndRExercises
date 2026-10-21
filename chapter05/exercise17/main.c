@@ -15,11 +15,8 @@
 #define FOLD 4
 #define DIRECTORY 8
 
-static int key_starts[MAXKEYS];
-static int key_ends[MAXKEYS];
-static int key_options[MAXKEYS];
-static int nkeys;
-static int options;
+static int key_starts[MAXKEYS], key_ends[MAXKEYS], key_options[MAXKEYS];
+static int nkeys, options;
 
 int get_line(char *s, int lim);
 int readlines(char *lineptr[], int maxlines, char storage[], int maxstor);
@@ -139,10 +136,8 @@ int parse_options(int argc, char *argv[])
 
 int get_line(char *s, int lim)
 {
-    int c;
-    int too_long = 0;
-    char *start = s;
-    char *end = s + lim - 1;
+    int c, too_long = 0;
+    char *start = s, *end = s + lim - 1;
 
     while ((c = getchar()) != EOF && c != '\n') {
         if (s < end) *s++ = (char) c;
@@ -160,9 +155,7 @@ int get_line(char *s, int lim)
 
 int readlines(char *lineptr[], int maxlines, char storage[], int maxstor)
 {
-    int len;
-    int nlines = 0;
-    int used = 0;
+    int len, nlines = 0, used = 0;
     char line[MAXLEN];
 
     while ((len = get_line(line, MAXLEN)) != 0) {
@@ -214,8 +207,7 @@ int next_char(const char **s, size_t *length, int flags)
 int compare_text(const char *a, size_t alen,
                  const char *b, size_t blen, int flags)
 {
-    int c1;
-    int c2;
+    int c1, c2;
 
     for (;;) {
         c1 = next_char(&a, &alen, flags);
@@ -240,8 +232,7 @@ int compare_fields(const char *a, size_t alen,
     int result;
 
     if (flags & NUMERIC) {
-        double v1 = field_number(a, alen);
-        double v2 = field_number(b, blen);
+        double v1 = field_number(a, alen), v2 = field_number(b, blen);
         result = (v1 > v2) - (v1 < v2);
     } else {
         result = compare_text(a, alen, b, blen, flags);
@@ -251,12 +242,9 @@ int compare_fields(const char *a, size_t alen,
 
 int compare_lines(const char *a, const char *b)
 {
-    int i;
-    int result;
-    const char *field_a;
-    const char *field_b;
-    size_t len_a;
-    size_t len_b;
+    int i, result;
+    const char *field_a, *field_b;
+    size_t len_a, len_b;
 
     if (nkeys == 0) {
         return compare_fields(a, strlen(a), b, strlen(b), options);
@@ -275,8 +263,7 @@ int compare_lines(const char *a, const char *b)
 void quick_sort(char *v[], int left, int right,
                 int (*comp)(const char *, const char *))
 {
-    int i;
-    int last;
+    int i, last;
 
     if (left >= right) return;
 

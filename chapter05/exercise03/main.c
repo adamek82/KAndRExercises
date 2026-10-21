@@ -13,9 +13,7 @@ int check_case(char initial[], char suffix[], char expected[]);
  */
 int main(void)
 {
-    char s1[100] = "hello";
-    char s2[100] = "";
-    char s3[100] = "K&R";
+    char s1[100] = "hello", s2[100] = "", s3[100] = "K&R";
 
     strcat_pointer(s1, " world");
     strcat_pointer(s2, "empty destination");

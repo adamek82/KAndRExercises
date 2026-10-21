@@ -49,8 +49,7 @@ int is_leap_year(int year)
 int day_of_year(int year, int month, int day)
 {
     int leap;
-    char *p;
-    char *monthp;
+    char *p, *monthp;
 
     if (year < 1) {
         return -1;
@@ -77,10 +76,8 @@ int day_of_year(int year, int month, int day)
 
 void month_day(int year, int yearday, int *pmonth, int *pday)
 {
-    int leap;
-    int year_days;
-    char *p;
-    char *start;
+    int leap, year_days;
+    char *p, *start;
 
     if (year < 1) {
         *pmonth = -1;
@@ -118,8 +115,7 @@ void check_day_of_year(int year, int month, int day, int expected)
 
 void check_month_day(int year, int yearday, int expected_month, int expected_day)
 {
-    int month;
-    int day;
+    int month, day;
 
     month_day(year, yearday, &month, &day);
 

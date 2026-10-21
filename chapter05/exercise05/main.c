@@ -18,9 +18,7 @@ int check_functions(void);
  */
 int main(void)
 {
-    char s1[20] = "hello";
-    char s2[20] = "abc";
-    char s3[20];
+    char s1[20] = "hello", s2[20] = "abc", s3[20];
 
     kr_strncat(s1, " world", 3);
     printf("kr_strncat(\"hello\", \" world\", 3) = %s\n", s1);
@@ -124,14 +122,9 @@ int buffer_equal(char *s, char *t, int n)
 int check_functions(void)
 {
     char a[20] = "hello";
-    char b[20] = "abc";
-    char c[20] = "unchanged";
-    char d[20] = "hello";
-    char e[20] = "hello";
-    char f[20] = "hello";
-    char g[20] = "hello";
-    char h[20] = "xxxxx";
-    char i[20] = "xxxxx";
+    char b[20] = "abc", c[20] = "unchanged";
+    char d[20] = "hello", e[20] = "hello", f[20] = "hello", g[20] = "hello";
+    char h[20] = "xxxxx", i[20] = "xxxxx";
 
     kr_strncat(a, " world", 3);
     if (!string_equal(a, "hello wo")) {

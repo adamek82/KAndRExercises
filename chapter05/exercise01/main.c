@@ -32,9 +32,7 @@ int check_rejected_case(char input[], int expected_first, int expected_second);
  */
 int main(void)
 {
-    int n;
-    int status;
-    int first, second;
+    int n, status, first, second;
 
     clear_pushback();
     ungets("123x");
@@ -191,8 +189,7 @@ int check_getint(void)
 
 int check_number_case(char input[], int expected_value, int expected_next)
 {
-    int n = 0;
-    int status;
+    int n = 0, status;
 
     clear_pushback();
     ungets(input);
@@ -204,8 +201,7 @@ int check_number_case(char input[], int expected_value, int expected_next)
 
 int check_rejected_case(char input[], int expected_first, int expected_second)
 {
-    int n = 12345;
-    int status;
+    int n = 12345, status;
 
     clear_pushback();
     ungets(input);

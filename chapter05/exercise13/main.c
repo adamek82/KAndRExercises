@@ -25,9 +25,7 @@ void print_tail(char *lineptr[], int nlines, int next_index, int requested);
  */
 int main(int argc, char *argv[])
 {
-    int n;
-    int len;
-    int nlines, index, store;
+    int n, len, nlines, index, store;
     char line[MAXLEN];
     char *lineptr[MAXLINES];
     char linestor[MAXSTOR];
@@ -115,8 +113,7 @@ void store_line(char *lineptr[], char *linestor, int *pstore, int index, char *l
 
 void print_tail(char *lineptr[], int nlines, int next_index, int requested)
 {
-    int i;
-    int first;
+    int i, first;
 
     if (requested > nlines) {
         requested = nlines;

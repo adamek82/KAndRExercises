@@ -38,8 +38,7 @@ int main(void)
 
 int strend(char *s, char *t)
 {
-    int s_len = string_length(s);
-    int t_len = string_length(t);
+    int s_len = string_length(s), t_len = string_length(t);
 
     if (t_len > s_len) {
         return 0;

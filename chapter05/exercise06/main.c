@@ -23,9 +23,7 @@ int check_string(char *actual, char *expected);
  */
 int main(void)
 {
-    char line[MAXLINE];
-    char number[50];
-    char text[] = "hello";
+    char line[MAXLINE], number[50], text[] = "hello";
 
     get_line(line, MAXLINE);
     printf("get_line = %s", line);
@@ -92,8 +90,7 @@ int kr_atoi(char *s)
 
 void kr_itoa(int n, char *s)
 {
-    int digit;
-    int sign = n;
+    int digit, sign = n;
     char *start = s;
 
     do {
@@ -128,9 +125,7 @@ void reverse(char *s)
 
 int strindex(char *s, char *t)
 {
-    char *base = s;
-    char *p;
-    char *q;
+    char *base = s, *p, *q;
 
     for (; *s; ++s) {
         for (p = s, q = t; *q && *p == *q; ++p, ++q) {
@@ -214,8 +209,7 @@ int check_functions(void)
 
 int check_itoa_case(int n)
 {
-    char actual[50];
-    char expected[50];
+    char actual[50], expected[50];
 
     kr_itoa(n, actual);
     sprintf(expected, "%d", n);

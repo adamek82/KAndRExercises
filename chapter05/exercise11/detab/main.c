@@ -16,9 +16,7 @@ int next_default_tab_stop(int column);
  */
 int main(int argc, char *argv[])
 {
-    int c;
-    int column;
-    int blanks;
+    int c, column, blanks;
     int tabstops[MAX_TABSTOPS];
     int ntabs;
 
@@ -54,8 +52,7 @@ int main(int argc, char *argv[])
 
 int parse_tabstops(int argc, char *argv[], int tabstops[], int maxstops)
 {
-    int i;
-    int value;
+    int i, value;
     char *end;
 
     for (i = 0; --argc > 0; ++i) {

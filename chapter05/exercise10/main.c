@@ -84,8 +84,7 @@ int getop(char *s)
 
 int is_number(char *s)
 {
-    int c;
-    int saw_digit;
+    int c, saw_digit;
 
     if (*s == '+' || *s == '-') {
         ++s;
